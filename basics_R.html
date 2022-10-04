@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zahid Asghar   USAID’s Training for KP Revenue Authority">
+<meta name="dcterms.date" content="2022-09-27">
+
+<title>Basic Data Handling Techniques in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="basics_R_files/libs/clipboard/clipboard.min.js"></script>
+<script src="basics_R_files/libs/quarto-html/quarto.js"></script>
+<script src="basics_R_files/libs/quarto-html/popper.min.js"></script>
+<script src="basics_R_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="basics_R_files/libs/quarto-html/anchor.min.js"></script>
+<link href="basics_R_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="basics_R_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="basics_R_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="basics_R_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="basics_R_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="basics_R_files/libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="basics_R_files/libs/jquery-1.12.4/jquery.min.js"></script>
+<link href="basics_R_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="basics_R_files/libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="basics_R_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="basics_R_files/libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="basics_R_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="basics_R_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="basics_R_files/libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="basics_R_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="basics_R_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#agenda" id="toc-agenda" class="nav-link active" data-scroll-target="#agenda">Agenda</a>
+  <ul class="collapse">
+  <li><a href="#important-verbs-for-handling-data" id="toc-important-verbs-for-handling-data" class="nav-link" data-scroll-target="#important-verbs-for-handling-data">5 Important verbs for handling data</a>
+  <ul class="collapse">
+  <li><a href="#view-glimpse-structure-head-tail" id="toc-view-glimpse-structure-head-tail" class="nav-link" data-scroll-target="#view-glimpse-structure-head-tail"><code>View</code>, <code>glimpse</code>, <code>structure</code>, <code>head</code>, <code>tail</code></a></li>
+  <li><a href="#select-for-column-selection" id="toc-select-for-column-selection" class="nav-link" data-scroll-target="#select-for-column-selection"><code>select()</code> for column selection</a></li>
+  <li><a href="#filter-for-data-filtering" id="toc-filter-for-data-filtering" class="nav-link" data-scroll-target="#filter-for-data-filtering"><code>filter()</code> for data filtering</a></li>
+  <li><a href="#arrange-data-ordering" id="toc-arrange-data-ordering" class="nav-link" data-scroll-target="#arrange-data-ordering"><code>arrange()</code> Data Ordering</a></li>
+  <li><a href="#mutate-creating-derived-columns" id="toc-mutate-creating-derived-columns" class="nav-link" data-scroll-target="#mutate-creating-derived-columns"><code>mutate()</code> Creating Derived Columns</a></li>
+  <li><a href="#summarise-calculating-summary-statistics" id="toc-summarise-calculating-summary-statistics" class="nav-link" data-scroll-target="#summarise-calculating-summary-statistics"><code>summarise()</code> Calculating Summary Statistics</a></li>
+  <li><a href="#group_by" id="toc-group_by" class="nav-link" data-scroll-target="#group_by"><code>group_by()</code></a></li>
+  </ul></li>
+  <li><a href="#data-science" id="toc-data-science" class="nav-link" data-scroll-target="#data-science">Data Science</a></li>
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#excel-or-stata-cant-do-this" id="toc-excel-or-stata-cant-do-this" class="nav-link" data-scroll-target="#excel-or-stata-cant-do-this">Excel (or Stata) Can’t Do This</a></li>
+  <li><a href="#or-this" id="toc-or-this" class="nav-link" data-scroll-target="#or-this">Or This</a></li>
+  <li><a href="#or-this-1" id="toc-or-this-1" class="nav-link" data-scroll-target="#or-this-1">Or This</a></li>
+  </ul></li>
+  <li><a href="#meet-r-and-r-studio" id="toc-meet-r-and-r-studio" class="nav-link" data-scroll-target="#meet-r-and-r-studio">Meet R and R Studio</a>
+  <ul class="collapse">
+  <li><a href="#r-and-r-studio" id="toc-r-and-r-studio" class="nav-link" data-scroll-target="#r-and-r-studio">R and R Studio</a></li>
+  <li><a href="#r-and-r-studio-1" id="toc-r-and-r-studio-1" class="nav-link" data-scroll-target="#r-and-r-studio-1">R and R Studio</a></li>
+  <li><a href="#r-studio-four-panes" id="toc-r-studio-four-panes" class="nav-link" data-scroll-target="#r-studio-four-panes">R Studio — Four Panes</a></li>
+  <li><a href="#ways-to-use-r-studio-using-the-console" id="toc-ways-to-use-r-studio-using-the-console" class="nav-link" data-scroll-target="#ways-to-use-r-studio-using-the-console">Ways to Use R Studio: Using the Console</a></li>
+  <li><a href="#ways-to-use-r-studio-writing-a-.r-script" id="toc-ways-to-use-r-studio-writing-a-.r-script" class="nav-link" data-scroll-target="#ways-to-use-r-studio-writing-a-.r-script">Ways to Use R Studio: Writing a <code>.R</code> Script</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#the-dataset-is-provided-in-the-gapminder-library" id="toc-the-dataset-is-provided-in-the-gapminder-library" class="nav-link" data-scroll-target="#the-dataset-is-provided-in-the-gapminder-library">The dataset is provided in the <code>gapminder</code> library</a></li>
+  <li><a href="#information-in-gapminder-data" id="toc-information-in-gapminder-data" class="nav-link" data-scroll-target="#information-in-gapminder-data">Information in <strong>gapminder</strong> data</a></li>
+  <li><a href="#filtering-with-respect-to-two-variables" id="toc-filtering-with-respect-to-two-variables" class="nav-link" data-scroll-target="#filtering-with-respect-to-two-variables">Filtering with respect to two variables</a>
+  <ul class="collapse">
+  <li><a href="#one-can-apply-multiple-filters" id="toc-one-can-apply-multiple-filters" class="nav-link" data-scroll-target="#one-can-apply-multiple-filters">One can apply multiple <code>filters</code></a></li>
+  <li><a href="#now-we-are-selecting-multiple-countries-for-year-2007." id="toc-now-we-are-selecting-multiple-countries-for-year-2007." class="nav-link" data-scroll-target="#now-we-are-selecting-multiple-countries-for-year-2007.">Now we are selecting multiple countries for year 2007.</a></li>
+  </ul></li>
+  <li><a href="#filtering-data-for-south-asia-countries" id="toc-filtering-data-for-south-asia-countries" class="nav-link" data-scroll-target="#filtering-data-for-south-asia-countries">Filtering data for South Asia countries</a></li>
+  <li><a href="#sort-data-with-arrange" id="toc-sort-data-with-arrange" class="nav-link" data-scroll-target="#sort-data-with-arrange">Sort data with <code>arrange()</code></a></li>
+  <li><a href="#life-expectancy-in-south-asia-in-2007" id="toc-life-expectancy-in-south-asia-in-2007" class="nav-link" data-scroll-target="#life-expectancy-in-south-asia-in-2007">Life Expectancy in South Asia in 2007</a></li>
+  <li><a href="#what-was-it-in-1952" id="toc-what-was-it-in-1952" class="nav-link" data-scroll-target="#what-was-it-in-1952">What was it in 1952?</a></li>
+  <li><a href="#how-to-calculate-new-variables" id="toc-how-to-calculate-new-variables" class="nav-link" data-scroll-target="#how-to-calculate-new-variables">How to calculate new variables</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#ordering" id="toc-ordering" class="nav-link" data-scroll-target="#ordering">Ordering</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a>
+  <ul class="collapse">
+  <li><a href="#top-5" id="toc-top-5" class="nav-link" data-scroll-target="#top-5">Top 5</a></li>
+  </ul></li>
+  <li><a href="#summarising-data" id="toc-summarising-data" class="nav-link" data-scroll-target="#summarising-data">Summarising data</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
+  <li><a href="#summarising-data-by-groups" id="toc-summarising-data-by-groups" class="nav-link" data-scroll-target="#summarising-data-by-groups">Summarising data by groups</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
+  <li><a href="#dplyr-tutorial0" id="toc-dplyr-tutorial0" class="nav-link" data-scroll-target="#dplyr-tutorial0"><span>dplyr tutorial0</span></a></li>
+  <li><a href="#total-population-by-continents-in-2007" id="toc-total-population-by-continents-in-2007" class="nav-link" data-scroll-target="#total-population-by-continents-in-2007">Total Population by Continents in 2007</a></li>
+  <li><a href="#percentiles" id="toc-percentiles" class="nav-link" data-scroll-target="#percentiles">Percentiles</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7"></a></li>
+  <li><a href="#advanced-analysis" id="toc-advanced-analysis" class="nav-link" data-scroll-target="#advanced-analysis">Advanced Analysis</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8"></a></li>
+  <li><a href="#visualizing-data-to-get-data-insight" id="toc-visualizing-data-to-get-data-insight" class="nav-link" data-scroll-target="#visualizing-data-to-get-data-insight">Visualizing data to get data insight</a></li>
+  <li><a href="#essential-components-of-ggplot2" id="toc-essential-components-of-ggplot2" class="nav-link" data-scroll-target="#essential-components-of-ggplot2">3 Essential components of <code>ggplot2</code></a></li>
+  <li><a href="#scatter-plot" id="toc-scatter-plot" class="nav-link" data-scroll-target="#scatter-plot">Scatter plot</a></li>
+  <li><a href="#bubbleplot" id="toc-bubbleplot" class="nav-link" data-scroll-target="#bubbleplot">Bubbleplot</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9"></a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10"></a></li>
+  <li><a href="#with-proper-title" id="toc-with-proper-title" class="nav-link" data-scroll-target="#with-proper-title">With proper title</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11"></a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12"></a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13"></a></li>
+  <li><a href="#comparison-of-2007-vs-1952-continentwise" id="toc-comparison-of-2007-vs-1952-continentwise" class="nav-link" data-scroll-target="#comparison-of-2007-vs-1952-continentwise">Comparison of 2007 vs 1952 continentwise</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14"></a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15"></a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16"></a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17"></a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18"></a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19"></a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20"></a></li>
+  <li><a href="#pakistan" id="toc-pakistan" class="nav-link" data-scroll-target="#pakistan">Pakistan</a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21"></a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Basic Data Handling Techniques in R</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><em>Zahid Asghar</em> <br> USAID’s Training for KP Revenue Authority </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 27, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="agenda" class="level1">
+<h1>Agenda</h1>
+<section id="important-verbs-for-handling-data" class="level2">
+<h2 class="anchored" data-anchor-id="important-verbs-for-handling-data">5 Important verbs for handling data</h2>
+<section id="view-glimpse-structure-head-tail" class="level3">
+<h3 class="anchored" data-anchor-id="view-glimpse-structure-head-tail"><code>View</code>, <code>glimpse</code>, <code>structure</code>, <code>head</code>, <code>tail</code></h3>
+</section>
+<section id="select-for-column-selection" class="level3">
+<h3 class="anchored" data-anchor-id="select-for-column-selection"><code>select()</code> for column selection</h3>
+</section>
+<section id="filter-for-data-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="filter-for-data-filtering"><code>filter()</code> for data filtering</h3>
+</section>
+<section id="arrange-data-ordering" class="level3">
+<h3 class="anchored" data-anchor-id="arrange-data-ordering"><code>arrange()</code> Data Ordering</h3>
+</section>
+<section id="mutate-creating-derived-columns" class="level3">
+<h3 class="anchored" data-anchor-id="mutate-creating-derived-columns"><code>mutate()</code> Creating Derived Columns</h3>
+</section>
+<section id="summarise-calculating-summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="summarise-calculating-summary-statistics"><code>summarise()</code> Calculating Summary Statistics</h3>
+</section>
+<section id="group_by" class="level3">
+<h3 class="anchored" data-anchor-id="group_by"><code>group_by()</code></h3>
+</section>
+</section>
+<section id="data-science" class="level2">
+<h2 class="anchored" data-anchor-id="data-science">Data Science</h2>
+<ul>
+<li><p><span class="hi">You go into data analysis with the tools you know, not the tools you need</span></p></li>
+<li><p>The next couple of days are all about giving you the tools you need</p>
+<ul>
+<li>Admittedly, a bit before you know what you need them <em>for</em></li>
+</ul></li>
+<li><p>We will extend them as we learn specific models</p></li>
+</ul>
+</section>
+<section id="r" class="level2">
+<h2 class="anchored" data-anchor-id="r">R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p><strong>Free</strong> and <strong>open source</strong></p></li>
+<li><p>A very large community</p>
+<ul>
+<li>Written by statisticians for statistics</li>
+<li>Most packages are written for <code>R</code> first</li>
+</ul></li>
+<li><p>Can handle virtually any data format</p></li>
+<li><p>Makes replication easy</p></li>
+<li><p>Can integrate into documents (with <code>R markdown</code>)</p></li>
+<li><p>R is a <em>language</em> so it can do <em>everything</em></p>
+<ul>
+<li>A good stepping stone to learning other languages like <em>Python</em></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/r.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="excel-or-stata-cant-do-this" class="level2">
+<h2 class="anchored" data-anchor-id="excel-or-stata-cant-do-this">Excel (or Stata) Can’t Do This</h2>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Output</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> lifeExp,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> continent))<span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.3</span>)<span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1000</span>,<span class="dv">10000</span>, <span class="dv">100000</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">label=</span>scales<span class="sc">::</span>dollar)<span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP/Capita"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Life Expectancy (Years)"</span>)<span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>continent)<span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> F)<span class="sc">+</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+"none")` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="or-this" class="level2">
+<h2 class="anchored" data-anchor-id="or-this">Or This</h2>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Input</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Output</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>The average GDP per capita is <code>` r dollar(mean(gapminder$gdpPercap)) `</code> with a standard deviation of <code>` r dollar(sd(gapminder$gdpPercap)) `</code>.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>The average GDP per capita is $7,215.33 with a standard deviation of $9,857.45.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="or-this-1" class="level2">
+<h2 class="anchored" data-anchor-id="or-this-1">Or This</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>(<span class="at">lng =</span> <span class="fl">73.136946</span>, <span class="at">lat =</span><span class="fl">33.748294</span> ,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">popup =</span> <span class="st">"School of Economics, QAU, Islamabad"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-7b34dd3e1a301e34d384" style="width:100%;height:180px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7b34dd3e1a301e34d384">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[33.748294,73.136946,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"School of Economics, QAU, Islamabad",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[33.748294,33.748294],"lng":[73.136946,73.136946]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+<section id="meet-r-and-r-studio" class="level1 centered" data-background-color="#314f4f">
+<h1 class="centered" data-background-color="#314f4f">Meet R and R Studio</h1>
+<section id="r-and-r-studio" class="level2">
+<h2 class="anchored" data-anchor-id="r-and-r-studio">R and R Studio</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p><span class="hi">R</span> is the programming language that executes commands</p></li>
+<li><p>Could run this from your computer’s shell</p>
+<ul>
+<li>On Windows: <strong>Command prompt</strong></li>
+<li>On Mac/Linux: <strong>Terminal</strong></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/r_terminal.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="r-and-r-studio-1" class="level2">
+<h2 class="anchored" data-anchor-id="r-and-r-studio-1">R and R Studio</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><span class="hi-purple">R Studio</span><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is an <strong>integrated development environment</strong> (IDE) that makes your coding life a lot easier
+<ul>
+<li>Write code in scripts</li>
+<li>Execute individual commands &amp; scripts</li>
+<li>Auto-complete, highlight syntax</li>
+<li>View data, objects, and plots</li>
+<li>Get help and documentation on commands and functions</li>
+<li>Integrate code into documents with <code>Quarto</code></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/r4screens1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="r-studio-four-panes" class="level2">
+<h2 class="anchored" data-anchor-id="r-studio-four-panes">R Studio — Four Panes</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r4screens1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="ways-to-use-r-studio-using-the-console" class="level2">
+<h2 class="anchored" data-anchor-id="ways-to-use-r-studio-using-the-console">Ways to Use R Studio: Using the Console</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Type individual commands into the console pane (bottom left)</p></li>
+<li><p>Great for testing individual commands to see what happens</p></li>
+<li><p>Not saved! Not reproducible! Not recommended!</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/rconsole1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="ways-to-use-r-studio-writing-a-.r-script" class="level2">
+<h2 class="anchored" data-anchor-id="ways-to-use-r-studio-writing-a-.r-script">Ways to Use R Studio: Writing a <code>.R</code> Script</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Source pane is a text-editor</p></li>
+<li><p>Make <code>.R</code> files: all input commands in a single script</p></li>
+<li><p>Comment with <code>#</code></p></li>
+<li><p>Can run any or all of script at once</p></li>
+<li><p>Can save, reproduce, and send to others!</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="images/rscriptbetter.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<p>I have discussed the <a href="https://cran.r-project.org/web/packages/gapminder/index.html">Gapminder dataset</a> in my videos and we shall use it as a reference for this training. It’s available through CRAN, so make sure to install it. Here’s how to load in all required packages:</p>
+<div class="cell">
+
+</div>
+</section>
+<section id="the-dataset-is-provided-in-the-gapminder-library" class="level2">
+<h2 class="anchored" data-anchor-id="the-dataset-is-provided-in-the-gapminder-library">The dataset is provided in the <code>gapminder</code> library</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country<span class="sc">==</span><span class="st">"Sweden"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdpPercap=</span><span class="fu">round</span>(gdpPercap,<span class="dv">0</span>), <span class="at">lifeExp=</span><span class="fu">round</span>(lifeExp,<span class="dv">2</span>))<span class="sc">%&gt;%</span><span class="fu">kable</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">"striped"</span>, <span class="at">full_width =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> country </th>
+   <th style="text-align:left;"> continent </th>
+   <th style="text-align:right;"> year </th>
+   <th style="text-align:right;"> lifeExp </th>
+   <th style="text-align:right;"> pop </th>
+   <th style="text-align:right;"> gdpPercap </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1952 </td>
+   <td style="text-align:right;"> 71.86 </td>
+   <td style="text-align:right;"> 7124673 </td>
+   <td style="text-align:right;"> 8528 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1957 </td>
+   <td style="text-align:right;"> 72.49 </td>
+   <td style="text-align:right;"> 7363802 </td>
+   <td style="text-align:right;"> 9912 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1962 </td>
+   <td style="text-align:right;"> 73.37 </td>
+   <td style="text-align:right;"> 7561588 </td>
+   <td style="text-align:right;"> 12329 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1967 </td>
+   <td style="text-align:right;"> 74.16 </td>
+   <td style="text-align:right;"> 7867931 </td>
+   <td style="text-align:right;"> 15258 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1972 </td>
+   <td style="text-align:right;"> 74.72 </td>
+   <td style="text-align:right;"> 8122293 </td>
+   <td style="text-align:right;"> 17832 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1977 </td>
+   <td style="text-align:right;"> 75.44 </td>
+   <td style="text-align:right;"> 8251648 </td>
+   <td style="text-align:right;"> 18856 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1982 </td>
+   <td style="text-align:right;"> 76.42 </td>
+   <td style="text-align:right;"> 8325260 </td>
+   <td style="text-align:right;"> 20667 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1987 </td>
+   <td style="text-align:right;"> 77.19 </td>
+   <td style="text-align:right;"> 8421403 </td>
+   <td style="text-align:right;"> 23587 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1992 </td>
+   <td style="text-align:right;"> 78.16 </td>
+   <td style="text-align:right;"> 8718867 </td>
+   <td style="text-align:right;"> 23880 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 1997 </td>
+   <td style="text-align:right;"> 79.39 </td>
+   <td style="text-align:right;"> 8897619 </td>
+   <td style="text-align:right;"> 25267 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 2002 </td>
+   <td style="text-align:right;"> 80.04 </td>
+   <td style="text-align:right;"> 8954175 </td>
+   <td style="text-align:right;"> 29342 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:right;"> 2007 </td>
+   <td style="text-align:right;"> 80.88 </td>
+   <td style="text-align:right;"> 9031088 </td>
+   <td style="text-align:right;"> 33860 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="information-in-gapminder-data" class="level2">
+<h2 class="anchored" data-anchor-id="information-in-gapminder-data">Information in <strong>gapminder</strong> data</h2>
+<p><code>View</code> command opens data in new worksheet while glimpse lists nature of variables (numeric/character/factor…) and total number of rows and columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gapminder) <span class="co"># We see that there are 1704 rows for 6 columns and also tells nature of variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,704
+Columns: 6
+$ country   &lt;fct&gt; "Afghanistan", "Afghanistan", "Afghanistan", "Afghanistan", …
+$ continent &lt;fct&gt; Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, …
+$ year      &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 1997, …
+$ lifeExp   &lt;dbl&gt; 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.854, 40.8…
+$ pop       &lt;int&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 14880372, 12…
+$ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.1134, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#View(gapminder)    # This opens up full data in a new window</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="filtering-with-respect-to-two-variables" class="level2">
+<h2 class="anchored" data-anchor-id="filtering-with-respect-to-two-variables">Filtering with respect to two variables</h2>
+<section id="one-can-apply-multiple-filters" class="level3">
+<h3 class="anchored" data-anchor-id="one-can-apply-multiple-filters">One can apply multiple <code>filters</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>,country<span class="sc">==</span><span class="st">"Sri Lanka"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+  country   continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Sri Lanka Asia       2007    72.4 20378239     3970.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>, country<span class="sc">==</span><span class="st">"Pakistan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+  country  continent  year lifeExp       pop gdpPercap
+  &lt;fct&gt;    &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+1 Pakistan Asia       2007    65.5 169270617     2606.</code></pre>
+</div>
+</div>
+</section>
+<section id="now-we-are-selecting-multiple-countries-for-year-2007." class="level3">
+<h3 class="anchored" data-anchor-id="now-we-are-selecting-multiple-countries-for-year-2007.">Now we are selecting multiple countries for year 2007.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>, country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"India"</span>, <span class="st">"Pakistan"</span>,<span class="st">"Bangladesh"</span>, <span class="st">"Afghanistan"</span>, <span class="st">"Iran"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 6
+  country     continent  year lifeExp        pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+1 Afghanistan Asia       2007    43.8   31889923      975.
+2 Bangladesh  Asia       2007    64.1  150448339     1391.
+3 India       Asia       2007    64.7 1110396331     2452.
+4 Iran        Asia       2007    71.0   69453570    11606.
+5 Pakistan    Asia       2007    65.5  169270617     2606.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="filtering-data-for-south-asia-countries" class="level2">
+<h2 class="anchored" data-anchor-id="filtering-data-for-south-asia-countries">Filtering data for South Asia countries</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gapminderSA<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Bangladesh"</span>,<span class="st">"India"</span>,<span class="st">"Pakistan"</span>,<span class="st">"Sri Lanka"</span>,<span class="st">"Nepal"</span>, <span class="st">"Afghanistan"</span>,<span class="st">"Bhutan"</span>, <span class="st">"Maldives"</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>gapminderSA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 72 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 62 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="sort-data-with-arrange" class="level2">
+<h2 class="anchored" data-anchor-id="sort-data-with-arrange">Sort data with <code>arrange()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gapminderSA <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(gdpPercap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 72 × 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Nepal       Asia       1952    36.2   9182536      546.
+ 2 India       Asia       1952    37.4 372000000      547.
+ 3 India       Asia       1957    40.2 409000000      590.
+ 4 Nepal       Asia       1957    37.7   9682338      598.
+ 5 Bangladesh  Asia       1972    45.3  70759295      630.
+ 6 Afghanistan Asia       1997    41.8  22227415      635.
+ 7 Afghanistan Asia       1992    41.7  16317921      649.
+ 8 Nepal       Asia       1962    39.4  10332057      652.
+ 9 India       Asia       1962    43.6 454000000      658.
+10 Bangladesh  Asia       1977    46.9  80428306      660.
+# … with 62 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>##</p>
+<p>Note that by default <code>arrange()</code> sorts in ascending order. If we want to sort in descending order, we use the function <code>desc()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gapminderSA <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 72 × 6
+   country   continent  year lifeExp        pop gdpPercap
+   &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+ 1 Sri Lanka Asia       2007    72.4   20378239     3970.
+ 2 Sri Lanka Asia       2002    70.8   19576783     3015.
+ 3 Sri Lanka Asia       1997    70.5   18698655     2664.
+ 4 Pakistan  Asia       2007    65.5  169270617     2606.
+ 5 India     Asia       2007    64.7 1110396331     2452.
+ 6 Sri Lanka Asia       1992    70.4   17587060     2154.
+ 7 Pakistan  Asia       2002    63.6  153403524     2093.
+ 8 Pakistan  Asia       1997    61.8  135564834     2049.
+ 9 Pakistan  Asia       1992    60.8  120065004     1972.
+10 Sri Lanka Asia       1987    69.0   16495304     1877.
+# … with 62 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="life-expectancy-in-south-asia-in-2007" class="level2">
+<h2 class="anchored" data-anchor-id="life-expectancy-in-south-asia-in-2007">Life Expectancy in South Asia in 2007</h2>
+<p>What is the lowest and highest life expectancy among South Asian countries?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>gapminderSA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span>  <span class="fu">arrange</span>(lifeExp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  country     continent  year lifeExp        pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+1 Afghanistan Asia       2007    43.8   31889923      975.
+2 Nepal       Asia       2007    63.8   28901790     1091.
+3 Bangladesh  Asia       2007    64.1  150448339     1391.
+4 India       Asia       2007    64.7 1110396331     2452.
+5 Pakistan    Asia       2007    65.5  169270617     2606.
+6 Sri Lanka   Asia       2007    72.4   20378239     3970.</code></pre>
+</div>
+</div>
+</section>
+<section id="what-was-it-in-1952" class="level2 scroll">
+<h2 class="scroll anchored" data-anchor-id="what-was-it-in-1952">What was it in 1952?</h2>
+<p><code>mutate()</code> to change existing or create new variable</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>gapminderSA <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">pop=</span>pop<span class="sc">/</span><span class="dv">1000000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 72 × 6
+   country     continent  year lifeExp   pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8.43      779.
+ 2 Afghanistan Asia       1957    30.3  9.24      821.
+ 3 Afghanistan Asia       1962    32.0 10.3       853.
+ 4 Afghanistan Asia       1967    34.0 11.5       836.
+ 5 Afghanistan Asia       1972    36.1 13.1       740.
+ 6 Afghanistan Asia       1977    38.4 14.9       786.
+ 7 Afghanistan Asia       1982    39.9 12.9       978.
+ 8 Afghanistan Asia       1987    40.8 13.9       852.
+ 9 Afghanistan Asia       1992    41.7 16.3       649.
+10 Afghanistan Asia       1997    41.8 22.2       635.
+# … with 62 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>If we want to calculate GDP, we need to multiply gdpPercap by pop.</p>
+<p>But wait! Didn’t we just change pop so it’s expressed in millions? No: we never stored the results of our previous command, we simply displayed them. Just as I discussed above, unless you overwrite it, the original gapminder dataset will be unchanged. With this in mind, we can create the gdp variable as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gapminderSA <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gdp =</span> pop <span class="sc">*</span> gdpPercap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 72 × 7
+   country     continent  year lifeExp      pop gdpPercap          gdp
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.  7585448670.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.  8758855797.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.  9648014150.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.  9678553274.
+ 6 Afghanistan Asia       1977    38.4 14880372      786. 11697659231.
+ 7 Afghanistan Asia       1982    39.9 12881816      978. 12598563401.
+ 8 Afghanistan Asia       1987    40.8 13867957      852. 11820990309.
+ 9 Afghanistan Asia       1992    41.7 16317921      649. 10595901589.
+10 Afghanistan Asia       1997    41.8 22227415      635. 14121995875.
+# … with 62 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="how-to-calculate-new-variables" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-calculate-new-variables">How to calculate new variables</h2>
+<p>As mentioned above, <code>mutate</code> is used to calculate new variable. Here we have calculated a new variable <code>gdp</code> and then <code>arrange()</code> data and selected <code>top_n(10)</code> countries to see whether higher <code>lifeExpectancy</code> and higher <code>gdp</code> are linked or not?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp=</span>gdpPercap<span class="sc">*</span>pop) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(gdp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Selecting by gdp</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 7
+   country        continent  year lifeExp        pop gdpPercap     gdp
+   &lt;fct&gt;          &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 United States  Americas   2007    78.2  301139947    42952. 1.29e13
+ 2 China          Asia       2007    73.0 1318683096     4959. 6.54e12
+ 3 Japan          Asia       2007    82.6  127467972    31656. 4.04e12
+ 4 India          Asia       2007    64.7 1110396331     2452. 2.72e12
+ 5 Germany        Europe     2007    79.4   82400996    32170. 2.65e12
+ 6 United Kingdom Europe     2007    79.4   60776238    33203. 2.02e12
+ 7 France         Europe     2007    80.7   61083916    30470. 1.86e12
+ 8 Brazil         Americas   2007    72.4  190010647     9066. 1.72e12
+ 9 Italy          Europe     2007    80.5   58147733    28570. 1.66e12
+10 Mexico         Americas   2007    76.2  108700891    11978. 1.30e12</code></pre>
+</div>
+</div>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1"></h2>
+<p><code>transmute()</code> keeps only the derived column. Let’s use it in the example from above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">gdp=</span>gdpPercap<span class="sc">*</span>pop) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(gdp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Selecting by gdp</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+       gdp
+     &lt;dbl&gt;
+ 1 1.29e13
+ 2 6.54e12
+ 3 4.04e12
+ 4 2.72e12
+ 5 2.65e12
+ 6 2.02e12
+ 7 1.86e12
+ 8 1.72e12
+ 9 1.66e12
+10 1.30e12</code></pre>
+</div>
+</div>
+</section>
+<section id="ordering" class="level2">
+<h2 class="anchored" data-anchor-id="ordering">Ordering</h2>
+<p>arrange data by life expectancy, we use <code>arrange()</code> function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, year,lifeExp) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(lifeExp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 142 × 3
+   country                   year lifeExp
+   &lt;fct&gt;                    &lt;int&gt;   &lt;dbl&gt;
+ 1 Swaziland                 2007    39.6
+ 2 Mozambique                2007    42.1
+ 3 Zambia                    2007    42.4
+ 4 Sierra Leone              2007    42.6
+ 5 Lesotho                   2007    42.6
+ 6 Angola                    2007    42.7
+ 7 Zimbabwe                  2007    43.5
+ 8 Afghanistan               2007    43.8
+ 9 Central African Republic  2007    44.7
+10 Liberia                   2007    45.7
+# … with 132 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2"></h2>
+<p>top to bottom, then use <code>arrange(desc())</code> command as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, year,lifeExp) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 142 × 3
+   country           year lifeExp
+   &lt;fct&gt;            &lt;int&gt;   &lt;dbl&gt;
+ 1 Japan             2007    82.6
+ 2 Hong Kong, China  2007    82.2
+ 3 Iceland           2007    81.8
+ 4 Switzerland       2007    81.7
+ 5 Australia         2007    81.2
+ 6 Spain             2007    80.9
+ 7 Sweden            2007    80.9
+ 8 Israel            2007    80.7
+ 9 France            2007    80.7
+10 Canada            2007    80.7
+# … with 132 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<section id="top-5" class="level3">
+<h3 class="anchored" data-anchor-id="top-5">Top 5</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, year,lifeExp) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Selecting by lifeExp</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  country           year lifeExp
+  &lt;fct&gt;            &lt;int&gt;   &lt;dbl&gt;
+1 Japan             2007    82.6
+2 Hong Kong, China  2007    82.2
+3 Iceland           2007    81.8
+4 Switzerland       2007    81.7
+5 Australia         2007    81.2</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="summarising-data" class="level2">
+<h2 class="anchored" data-anchor-id="summarising-data">Summarising data</h2>
+<p>Another feature of dplyr is <code>summarise</code> data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(lifeExp),<span class="at">min=</span><span class="fu">min</span>(lifeExp),<span class="at">max=</span><span class="fu">max</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  continent  mean   min   max
+  &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Africa     54.8  39.6  76.4
+2 Americas   73.6  60.9  80.7
+3 Asia       70.7  43.8  82.6
+4 Europe     77.6  71.8  81.8
+5 Oceania    80.7  80.2  81.2</code></pre>
+</div>
+</div>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avglifeExp=</span><span class="fu">mean</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  avglifeExp
+       &lt;dbl&gt;
+1       59.5</code></pre>
+</div>
+</div>
+</section>
+<section id="summarising-data-by-groups" class="level2">
+<h2 class="anchored" data-anchor-id="summarising-data-by-groups">Summarising data by groups</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>, continent <span class="sc">==</span> <span class="st">"Asia"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avgLifeExp =</span> <span class="fu">mean</span>(lifeExp)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  avgLifeExp
+       &lt;dbl&gt;
+1       70.7</code></pre>
+</div>
+</div>
+</section>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avglife=</span><span class="fu">mean</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  continent avglife
+  &lt;fct&gt;       &lt;dbl&gt;
+1 Africa       54.8
+2 Americas     73.6
+3 Asia         70.7
+4 Europe       77.6
+5 Oceania      80.7</code></pre>
+</div>
+</div>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5"></h2>
+<p>we could get the mean, maximum, and mean life expectancy of the entire dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">lifeExp_min =</span> <span class="fu">min</span>(lifeExp),</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lifeExp_max =</span> <span class="fu">max</span>(lifeExp),</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lifeExp_mean =</span> <span class="fu">mean</span>(lifeExp)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  lifeExp_min lifeExp_max lifeExp_mean
+        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+1        23.6        82.6         59.5</code></pre>
+</div>
+</div>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6"></h2>
+<p>For example, let’s say we want to get the mean, minimum, and maximum of life expectancy, but instead of for the entire dataset, we want to see it for each year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lifeExp_min =</span> <span class="fu">min</span>(lifeExp),</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lifeExp_max =</span> <span class="fu">max</span>(lifeExp),</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lifeExp_mean =</span> <span class="fu">mean</span>(lifeExp)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 4
+    year lifeExp_min lifeExp_max lifeExp_mean
+   &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+ 1  1952        28.8        72.7         49.1
+ 2  1957        30.3        73.5         51.5
+ 3  1962        32.0        73.7         53.6
+ 4  1967        34.0        74.2         55.7
+ 5  1972        35.4        74.7         57.6
+ 6  1977        31.2        76.1         59.6
+ 7  1982        38.4        77.1         61.5
+ 8  1987        39.9        78.7         63.2
+ 9  1992        23.6        79.4         64.2
+10  1997        36.1        80.7         65.0
+11  2002        39.2        82           65.7
+12  2007        39.6        82.6         67.0</code></pre>
+</div>
+</div>
+</section>
+<section id="dplyr-tutorial0" class="level2">
+<h2 class="anchored" data-anchor-id="dplyr-tutorial0"><a href="https://anderfernandez.com/en/blog/dplyr-tutorial/">dplyr tutorial0</a></h2>
+<p><code>if_else</code> command alongwith mutate</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avgLifeExp =</span> <span class="fu">mean</span>(lifeExp)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">over75 =</span> <span class="fu">if_else</span>(avgLifeExp <span class="sc">&gt;</span> <span class="dv">70</span>, <span class="st">"Y"</span>, <span class="st">"N"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  continent avgLifeExp over75
+  &lt;fct&gt;          &lt;dbl&gt; &lt;chr&gt; 
+1 Africa          54.8 N     
+2 Americas        73.6 Y     
+3 Asia            70.7 Y     
+4 Europe          77.6 Y     
+5 Oceania         80.7 Y     </code></pre>
+</div>
+</div>
+</section>
+<section id="total-population-by-continents-in-2007" class="level2">
+<h2 class="anchored" data-anchor-id="total-population-by-continents-in-2007">Total Population by Continents in 2007</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">tot_pop=</span><span class="fu">sum</span>(pop)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  continent    tot_pop
+  &lt;fct&gt;          &lt;dbl&gt;
+1 Africa     929539692
+2 Americas   898871184
+3 Asia      3811953827
+4 Europe     586098529
+5 Oceania     24549947</code></pre>
+</div>
+</div>
+</section>
+<section id="percentiles" class="level2">
+<h2 class="anchored" data-anchor-id="percentiles">Percentiles</h2>
+<p>In general it is assumed that higher the GDP , higher the lifeExp. To test this assumption, lets calculate percentiles of lifeExp. This will indicate how many countries have ranking lower than the current country.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">select</span>(country,year, lifeExp, gdpPercap) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentile =</span> <span class="fu">ntile</span>(lifeExp, <span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 142 × 5
+   country           year lifeExp gdpPercap percentile
+   &lt;fct&gt;            &lt;int&gt;   &lt;dbl&gt;     &lt;dbl&gt;      &lt;int&gt;
+ 1 Norway            2007    80.2    49357.         88
+ 2 Kuwait            2007    77.6    47307.         68
+ 3 Singapore         2007    80.0    47143.         87
+ 4 United States     2007    78.2    42952.         71
+ 5 Ireland           2007    78.9    40676.         79
+ 6 Hong Kong, China  2007    82.2    39725.         99
+ 7 Switzerland       2007    81.7    37506.         97
+ 8 Netherlands       2007    79.8    36798.         85
+ 9 Canada            2007    80.7    36319.         91
+10 Iceland           2007    81.8    36181.         98
+# … with 132 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7"></h2>
+<p>One can notice that all countries are well above 60th percentile on lifeExpectancy when arranged by GDP per capita.</p>
+<p>Before you conclude, lets see the bottom side</p>
+<p>So it makes sense that higher the GDP, higher the lifeExp. This is not formal testing but exploratory data makes lot of sense here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">select</span>(country,year, lifeExp, gdpPercap) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentile =</span> <span class="fu">ntile</span>(lifeExp, <span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(gdpPercap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 142 × 5
+   country                   year lifeExp gdpPercap percentile
+   &lt;fct&gt;                    &lt;int&gt;   &lt;dbl&gt;     &lt;dbl&gt;      &lt;int&gt;
+ 1 Congo, Dem. Rep.          2007    46.5      278.          7
+ 2 Liberia                   2007    45.7      415.          5
+ 3 Burundi                   2007    49.6      430.         10
+ 4 Zimbabwe                  2007    43.5      470.          4
+ 5 Guinea-Bissau             2007    46.4      579.          6
+ 6 Niger                     2007    56.9      620.         18
+ 7 Eritrea                   2007    58.0      641.         19
+ 8 Ethiopia                  2007    52.9      691.         14
+ 9 Central African Republic  2007    44.7      706.          5
+10 Gambia                    2007    59.4      753.         21
+# … with 132 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="advanced-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-analysis">Advanced Analysis</h2>
+<p>Filtering data as done in introductory analysis seems quite difficult if you are not familiar with these simple things. But if you are working with dplyr for quite sometime, there is not anything very advanced or difficult.</p>
+<p>For example, let’s say you have to find out the top 10 countries in the 90th percentile regarding life expectancy in 2007. You can reuse some of the logic from the previous sections, but answering this question alone requires <code>multiple filtering</code> and <code>subsetting</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentile=</span><span class="fu">ntile</span>(lifeExp,<span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(percentile<span class="sc">&gt;</span><span class="dv">90</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(percentile)) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>,<span class="at">wt=</span>percentile) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country,continent,lifeExp,gdpPercap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   country          continent lifeExp gdpPercap
+   &lt;fct&gt;            &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Japan            Asia         82.6    31656.
+ 2 Hong Kong, China Asia         82.2    39725.
+ 3 Iceland          Europe       81.8    36181.
+ 4 Switzerland      Europe       81.7    37506.
+ 5 Australia        Oceania      81.2    34435.
+ 6 Spain            Europe       80.9    28821.
+ 7 Sweden           Europe       80.9    33860.
+ 8 Israel           Asia         80.7    25523.
+ 9 France           Europe       80.7    30470.
+10 Canada           Americas     80.7    36319.</code></pre>
+</div>
+</div>
+</section>
+<section id="section-8" class="level2">
+<h2 class="anchored" data-anchor-id="section-8"></h2>
+<p>In case you are interested in bottom 10 (worst lifeExp countries from the bottom), use <code>top_n</code> with <code>-10</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentile=</span><span class="fu">ntile</span>(lifeExp,<span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(percentile<span class="sc">&lt;</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(percentile) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="at">wt=</span>percentile) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country,continent,lifeExp,gdpPercap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   country                  continent lifeExp gdpPercap
+   &lt;fct&gt;                    &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Mozambique               Africa       42.1      824.
+ 2 Swaziland                Africa       39.6     4513.
+ 3 Sierra Leone             Africa       42.6      863.
+ 4 Zambia                   Africa       42.4     1271.
+ 5 Angola                   Africa       42.7     4797.
+ 6 Lesotho                  Africa       42.6     1569.
+ 7 Afghanistan              Asia         43.8      975.
+ 8 Zimbabwe                 Africa       43.5      470.
+ 9 Central African Republic Africa       44.7      706.
+10 Liberia                  Africa       45.7      415.</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-data-to-get-data-insight" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-data-to-get-data-insight">Visualizing data to get data insight</h2>
+<p>Visualizing data is one of the most important aspect of getting data insight and may provide a better data insight than a complicated model. Visualizing large data sets were not an easy task, so researchers relied on mathematical and core econometric/regression models. <code>ggplot2</code> which is a set of <code>tidyverse</code> package is probably one of the greatest tool for data visualization used in <code>R</code>. In the following sections we are going to visualize <code>gapminder</code> data.</p>
+<p>Stat graphics is a mapping of variable to <code>aes</code>thetic attributes of <code>geom</code>etric objects.</p>
+</section>
+<section id="essential-components-of-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="essential-components-of-ggplot2">3 Essential components of <code>ggplot2</code></h2>
+<ul>
+<li>data: dataset containing the variables of interest</li>
+<li>geom: geometric object in question line, point, bars</li>
+<li>aes: aesthetic attributes of an object x/y position, colors, shape, size</li>
+</ul>
+</section>
+<section id="scatter-plot" class="level2">
+<h2 class="anchored" data-anchor-id="scatter-plot">Scatter plot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>gapminder2007<span class="ot">&lt;-</span>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>p1<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder2007,<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap,<span class="at">y=</span>lifeExp,<span class="at">color=</span>continent,<span class="at">size=</span>pop))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">+</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>continent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">+</span>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP Per Capita"</span>, <span class="at">y =</span> <span class="st">"Life Expectancy in Years"</span>,</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Economic Growth and Life Expectancy"</span>,</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">"Data points are country-years"</span>,</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">caption =</span> <span class="st">"Source: Gapminder."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-31-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="bubbleplot" class="level2">
+<h2 class="anchored" data-anchor-id="bubbleplot">Bubbleplot</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-9" class="level2">
+<h2 class="anchored" data-anchor-id="section-9"></h2>
+<p>If you just want to highlight the relationship between gbp per capita and life Expectancy you’ve probably done most of the work now. However, it is a good practice to highlight a few interesting dots in this chart to give more insight to the plot:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="do">##This is a table of data about a large number of countries, each observed over several years. Let's make a scatterplot with it.</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>P<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder,<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap,<span class="at">y=</span>lifeExp))  </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>P<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>P<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-34-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>P<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"gam"</span>)<span class="sc">+</span><span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-34-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>P<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"gam"</span>)<span class="sc">+</span><span class="fu">scale_x_log10</span>(<span class="at">labels=</span>scales<span class="sc">::</span>dollar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-34-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>P<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder,<span class="at">mapping =</span> <span class="fu">aes</span>(gdpPercap,<span class="at">y=</span>lifeExp,<span class="at">color=</span><span class="st">"purple"</span>))</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>P<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)<span class="sc">+</span><span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-34-5.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-10" class="level2">
+<h2 class="anchored" data-anchor-id="section-10"></h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-35-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="with-proper-title" class="level2">
+<h2 class="anchored" data-anchor-id="with-proper-title">With proper title</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>P<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder,<span class="at">mapping =</span> <span class="fu">aes</span>(gdpPercap,<span class="at">y=</span>lifeExp))</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>P<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.3</span>)<span class="sc">+</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"gam"</span>)<span class="sc">+</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels=</span>scales<span class="sc">::</span>dollar)<span class="sc">+</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP Per Capita"</span>, <span class="at">y =</span> <span class="st">"Life Expectancy in Years"</span>,</span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Economic Growth and Life Expectancy"</span>,</span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Data points are country-years"</span>,</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Source: Gapminder."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-11" class="level2">
+<h2 class="anchored" data-anchor-id="section-11"></h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-12" class="level2">
+<h2 class="anchored" data-anchor-id="section-12"></h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-13" class="level2">
+<h2 class="anchored" data-anchor-id="section-13"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">log</span>(pop))) <span class="sc">+</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_log10</span>()  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="comparison-of-2007-vs-1952-continentwise" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-of-2007-vs-1952-continentwise">Comparison of 2007 vs 1952 continentwise</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-14" class="level2">
+<h2 class="anchored" data-anchor-id="section-14"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP Per Capita"</span>, <span class="at">y =</span> <span class="st">"Life Expectancy in Years"</span>,</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Economic Growth and Life Expectancy"</span>,</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"Data points are country-years"</span>,</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">"Source: Gapminder."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-15" class="level2">
+<h2 class="anchored" data-anchor-id="section-15"></h2>
+<div class="cell">
+
+</div>
+</section>
+<section id="section-16" class="level2">
+<h2 class="anchored" data-anchor-id="section-16"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span>  </span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>pop, <span class="sc">-</span>gdpPercap) <span class="sc">%&gt;%</span>  </span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span>  </span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_life_exp =</span>  </span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mean</span>(lifeExp),<span class="at">median_life_exp=</span><span class="fu">median</span>(lifeExp)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  continent mean_life_exp median_life_exp
+  &lt;fct&gt;             &lt;dbl&gt;           &lt;dbl&gt;
+1 Africa             54.8            52.9
+2 Americas           73.6            72.9
+3 Asia               70.7            72.4
+4 Europe             77.6            78.6
+5 Oceania            80.7            80.7</code></pre>
+</div>
+</div>
+</section>
+<section id="section-17" class="level2">
+<h2 class="anchored" data-anchor-id="section-17"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span>  </span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>pop, <span class="sc">-</span>gdpPercap) <span class="sc">%&gt;%</span>  </span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span>  </span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median_life_exp =</span>  </span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">median</span>(lifeExp)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span>  </span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> continent) <span class="sc">+</span>  </span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> median_life_exp) <span class="sc">+</span>  </span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">3</span>,  </span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span>  </span>
+<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">85</span>)) <span class="sc">+</span>  </span>
+<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Median life expectency by continent in 2007"</span>) <span class="sc">+</span>  </span>
+<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Data Source: Gapminder package in R"</span>) <span class="sc">+</span>  </span>
+<span id="cb87-15"><a href="#cb87-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>) <span class="sc">+</span>  </span>
+<span id="cb87-16"><a href="#cb87-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Median life expectancy"</span>) <span class="sc">+</span>  </span>
+<span id="cb87-17"><a href="#cb87-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Zahid Asghar for 'QM4SSH'"</span>) <span class="sc">+</span>  </span>
+<span id="cb87-18"><a href="#cb87-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-18" class="level2">
+<h2 class="anchored" data-anchor-id="section-18"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>    gapminder <span class="sc">%&gt;%</span>  </span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1997</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(country, continent, lifeExp) <span class="sc">%&gt;%</span>  </span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(  </span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">life_cats =</span>  </span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">case_when</span>(lifeExp <span class="sc">&gt;=</span> <span class="dv">70</span> <span class="sc">~</span> <span class="st">"70+"</span>,  </span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>                    lifeExp <span class="sc">&lt;</span> <span class="dv">70</span> <span class="sc">~</span> <span class="st">"&lt;70"</span>)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>() <span class="sc">+</span>  </span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> life_cats) <span class="sc">+</span>  </span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_jitter</span>(<span class="at">width =</span> .<span class="dv">25</span>, <span class="at">height =</span> .<span class="dv">25</span>)<span class="sc">+</span>  </span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">col =</span> continent) <span class="sc">+</span>  </span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_discrete</span>(<span class="at">guide =</span> <span class="cn">FALSE</span>) <span class="sc">+</span>  </span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_dark</span>() <span class="sc">+</span>  </span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span>  </span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Life expectency beyond 70 in 1997"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
+use `guide = "none"` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-19" class="level2">
+<h2 class="anchored" data-anchor-id="section-19"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>    gapminder <span class="sc">%&gt;%</span>  </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">gdp_billions =</span>  </span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>               gdpPercap <span class="sc">*</span>  </span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>               pop<span class="sc">/</span><span class="dv">1000000000</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>() <span class="sc">+</span>  </span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> year) <span class="sc">+</span>  </span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">y =</span> gdp_billions) <span class="sc">+</span>  </span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span>  </span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">group =</span> country) <span class="sc">+</span>  </span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_y_log10</span>() <span class="sc">+</span>  </span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">col =</span> continent) <span class="sc">+</span>  </span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>( <span class="sc">~</span> continent) <span class="sc">+</span>  </span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_discrete</span>(<span class="at">guide =</span> F) <span class="sc">+</span>  </span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please
+use `guide = "none"` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-20" class="level2">
+<h2 class="anchored" data-anchor-id="section-20"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>    gapminder <span class="sc">%&gt;%</span>  </span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span>  </span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> lifeExp) <span class="sc">+</span>  </span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>() <span class="sc">+</span>  </span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">2</span>) <span class="sc">+</span>  </span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stat_summary</span>(<span class="at">fun.y =</span> mean,</span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">col =</span> <span class="st">"goldenrod3"</span>,</span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="pakistan" class="level2">
+<h2 class="anchored" data-anchor-id="pakistan">Pakistan</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>    gapminder <span class="sc">%&gt;%</span>  </span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Pakistan"</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>() <span class="sc">+</span>  </span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp) <span class="sc">+</span>  </span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span>  </span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">alpha =</span> year) <span class="sc">+</span>  </span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">col =</span> year) <span class="sc">+</span>  </span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span>  </span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>    gapminder <span class="sc">%&gt;%</span>  </span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>() <span class="sc">+</span>  </span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap) <span class="sc">+</span>  </span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">y =</span> lifeExp) <span class="sc">+</span>  </span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span>  </span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_rug</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span>  </span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">col =</span> continent) <span class="sc">+</span>  </span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">col =</span> lifeExp) <span class="sc">+</span>  </span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_x_log10</span>() <span class="sc">+</span>  </span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">size =</span> gdpPercap) <span class="sc">+</span>  </span>
+<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">size =</span> pop) <span class="sc">+</span>  </span>
+<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">col =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span>  </span>
+<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span> continent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="basics_R_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-21" class="level2">
+<h2 class="anchored" data-anchor-id="section-21"></h2>
+<div class="cell">
+
+</div>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>The company R Studio recently <a href="https://www.rstudio.com/blog/rstudio-is-becoming-posit/">announced</a> they will be rebranding later this fall as <strong>Posit</strong>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
