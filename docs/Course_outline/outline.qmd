@@ -2,7 +2,7 @@
 footer: "[QM4DE](zahidasghar.com/courses)"
 format:
   html:
-    theme: [default,ryan.scss]
+    theme: [default,custom.scss]
 editor: visual
 ---
 
