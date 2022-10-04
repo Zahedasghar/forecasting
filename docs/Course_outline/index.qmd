@@ -10,7 +10,7 @@ editor: visual
 
 ::: columns
 ::: {.column width="30%"}
-![](zahid.jpeg){width="512"}
+![](zahid.JPEG){width="512"}
 :::
 
 ::: {.column width="70%"}
@@ -38,15 +38,15 @@ Main books I will follow are :
 
 ::: columns
 ::: {.column width="25%"}
-![[Forecasting: Practice and Principles](https://otexts.com/fpp3/)](fpp3.jpg)
+![[Forecasting: Practice and Principles](https://otexts.com/fpp3/)](fpp3.JPG)
 :::
 
 ::: {.column width="25%"}
-![[Applied Econometrics Time Series](https://www.worldbank.org/en/programs/sief-trust-fund/publication/impact-evaluation-in-practice)](timeseries.jpg)
+![[Applied Econometrics Time Series](https://www.worldbank.org/en/programs/sief-trust-fund/publication/impact-evaluation-in-practice)](timeseries.JPG)
 :::
 
 ::: {.column width="25%"}
-![[Doing Economics: Selected Chapters](https://www.core-econ.org/project/doing-economics/)](doing_economics.jpg)
+![[Doing Economics: Selected Chapters](https://www.core-econ.org/project/doing-economics/)](doing_economics.JPG)
 :::
 :::
 
