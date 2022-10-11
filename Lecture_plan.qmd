@@ -1,0 +1,13 @@
+---
+title: "Lectures "
+format: revealjs
+editor: visual
+---
+
+## Plan of lecture
+
+-   ACF
+-   PACF
+-   goog from fpp2 (Exercise) and application to PSX
+-   WN
+-   Naive and SNaive forecasting

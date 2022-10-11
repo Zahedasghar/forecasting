@@ -3,7 +3,7 @@ title: "Forecasting in R"
 author: "*Zahid Asghar and <br> <br> Tayyaba Batool,Capacity Analytics, Islamabad*"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 format:
-  pdf :
+  html :
     theme: [default,custom.scss]
     toc: true
     code-fold: true

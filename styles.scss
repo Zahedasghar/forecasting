@@ -1,34 +1,15 @@
-<style>
-#TOC {
-  color: #708090;
-  font-family: Georgia;
-  font-size: 16px; 
-  border-color: #708090;
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+/*-- scss:defaults --*/
+
+$link-color: #EE6331;
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-monospace: 'Fira Mono', monospace;
+
+$presentation-title-slide-text-align: left;
+
+/*-- scss:rules --*/
+
+h2 {
+  color: #447099 !important;
 }
-h1.title {
-  color: #d00000;
-  background-color: #F5F5F5;
-  opacity: 0.7;
-  font-family: Georgia;
-  font-size: 20px;
-}
-h4.author {
-  color: #708090;
-  font-family: Georgia;
-  background-color: #F5F5F5;
-}
-h4.date {
-  color: #708090;  
-  font-family: Georgia;
-  background-color: #F5F5F5;
-}
-body {
-  color: #708090;
-  font-family: Georgia;
-  background-color: #F5F5F5;
-}
-pre {
-  color: #708090;
-  background-color: #F8F8FF;
-}
-</style>

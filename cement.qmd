@@ -1,20 +1,22 @@
 ---
-title: "USAID's Khyber Pakhtukhwa Revenue Mobilization (KPRM) Activity "
+title: "Cement Production in Pakistan "
 author: "*Zahid Asghar*"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-logo: "USAID1.jpg"
-format:
-  revealjs: 
-    slide-number: true
-    chalkboard: false
-    #   buttons: false 
-    theme: [simple, custom.scss]
+format: 
+  revealjs:
+    self-contained: false
+    slide-number: c/t
+    width: 1600
+    height: 900
+    logo: "https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png"
+    footer: "[zahid asghar](https://zahidasghar.com/)"
+    theme: ["simple", "styles.scss"]
+    echo: true
+    multiplex: true
+    code-link: true
     title-slide-attributes:
-      #data-background-color: "#cf3a36"
-      data-background-image: USAID1.jpg
-      #data-background-size: cover 
-    code-fold: true
-editor: visual
+      data-background-color: "#447099"
+editor: source
 ---
 
 
@@ -27,14 +29,14 @@ knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
 options(digits = 3, width = 75)
 ```
 
-## ![](usaid-kp.png){fig-align="top" width="1500" height="190"} {.centered .top background-color="`r clrs_lt[6]`"}
 
 
-  
+## ![](industry.jpg){fig-align="top" width="1600" height="800"} {.centered .top background-color="`r clrs_lt[6]`"}
+
 ## Cement Production
-  
-  We have data from [Cement Manufacturers Association](https://www.apcma.com). Lets explore this data as follows:
-  
+
+We have data from [Cement Manufacturers Association](https://www.apcma.com). Lets explore this data as follows:
+
 ```{r}
 #| warning: false
 #| message: false
@@ -59,7 +61,7 @@ library(fable)
 library(fabletools)
 ```
 
-### Read data
+## Read data
 
 ```{r}
 #| warning: false
@@ -68,7 +70,7 @@ cement<-read_csv("cement.csv")
 glimpse(cement)
 ```
 
-### Selecting and Renaming variables
+## Selecting and Renaming variables
 
 ```{r}
 cement<-cement %>% rename(Category=`Series Name` )
@@ -103,7 +105,7 @@ cement_yrly
 ```{r}
 p1<-ggplot(cement_yrly)+aes(x=year,y=prod_yr)+geom_line()
 p1
-forecast::naive(cement_yrly$prod_yr, h=4) %>% autoplot() 
+#forecast::naive(cement_yrly$prod_yr, h=4) %>% autoplot() 
 ```
 
 ## Monthly cement production
@@ -141,9 +143,9 @@ p11<-ggplot(cement_2010)+aes(x=Date,y=Output)+geom_line()
 p11+labs(x="Date",y="Output (Thousand metric tons", title = "Monthly Cement Output from 2010-2022", caption = "By Zahid Asghar, Source:APCMA, Pakistan")
 ```
 
-## Forecasting
+# Forecasting {background-color="#447099"}
 
-Why series seems reversed? This is because date is placed in reverse order. So lets use a verb for sorting date in ascending order by `sort`
+
 
 ```{r}
 
@@ -159,7 +161,6 @@ fit_arima<-auto.arima(cement$Output, stepwise = FALSE, approximation = FALSE)
 summary(fit_arima)
 
 ```
-
 
 ## Seasonal Plot
 
@@ -205,3 +206,12 @@ library(shiny)
 #view(seas(cement_prod))
 
 ```
+
+
+::: {style="font-size: 105px;"}
+
+```bash
+quarto render cement.qmd --to pdf
+```
+
+:::
