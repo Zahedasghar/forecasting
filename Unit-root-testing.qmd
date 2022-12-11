@@ -1,5 +1,5 @@
 ---
-title: "Unit Root Tests: Methods and Problems"
+title: "Unit Roots Tests: Methods and Problems"
 subtitle: "Economic Forecasting and Panel Data Analysis"
 format:
   revealjs:
@@ -9,11 +9,11 @@ format:
     height: 900
     width: 1600
     chalkboard: true
-    #title-slide-attributes: 
-      #data-background-image: images/peacock.jpg
-      #data-background-size: 15%
-      #data-background-position: 95% 95%
-      #data-background-color: "#447099"
+    title-slide-attributes: 
+      data-background-image: images/peacock.jpg
+      data-background-size: 15%
+      data-background-position: 95% 95%
+      data-background-color: "#447099"
 overview: true
 execute:
   echo: false
@@ -24,7 +24,7 @@ bibliography: references.bib
 
 ##  {.centered background-color="#447099"}
 
-[QM_R --- Work flow in R]{.custom-title}
+[Economic Forecasting --- Unit Roots Test]{.custom-title}
 
 [Dr. Zahid Asghar <br> Professor of Economics]{.custom-author}
 
