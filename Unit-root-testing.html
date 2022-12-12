@@ -324,7 +324,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#447099" data-background-image="images/peacock.jpg" data-background-position="95% 95%" data-background-size="15%" class="quarto-title-block center">
+<section id="title-slide" data-background-color="#447099" class="quarto-title-block center">
   <h1 class="title">Unit Roots Tests: Methods and Problems</h1>
   <p class="subtitle">Economic Forecasting and Panel Data Analysis</p>
 
@@ -346,7 +346,7 @@
 <h2>Order of integration of a Series</h2>
 <p>A series which is stationary after being differenced once is said to integrated of order 1 and is being denoted by <em>I(1)</em>.In general a series which is stationary after being differenced <span class="math inline">\(d\)</span> times is said to be integrated of order <span class="math inline">\(d\)</span>, denoted <span class="math inline">\(I(d)\)</span>. A series, which is stationary without differencing, is said to be <span class="math inline">\(I(0)\)</span></p>
 <p><span class="math inline">\(Y_t=b_0+Y_{t-1}+\epsilon_t\)</span> –&gt; <span class="math inline">\(I(1)\)</span></p>
-<p><span class="math inline">\(\Delta{Y_t}= Y_t-Y_{t-1}=b_0+\epsilon_t\)</span> –&gt; <span class="math inline">\(I(1)\)</span></p>
+<p><span class="math inline">\(\Delta{Y_t}= Y_t-Y_{t-1}=b_0+\epsilon_t\)</span> –&gt; <span class="math inline">\(I(0)\)</span></p>
 </section>
 <section id="informal-procedures-to-indentify-non-stationnary-process" class="slide level2">
 <h2>Informal Procedures to indentify non-stationnary process</h2>
@@ -389,7 +389,7 @@
 <ul>
 <li><p>Use a t-test with null <span class="math inline">\(H_0: b_1=1\)</span> (non-stationary)</p></li>
 <li><p>against alternative <span class="math inline">\(H_a: b_1&lt;1\)</span> (stationary)</p></li>
-<li><p>Test Statistics : TS=<span class="math inline">\((b_1-1)/SE(b_1)\)</span> reject null hypothesis when test statistics is large negative 5% critical value is -1/65</p></li>
+<li><p>Test Statistics : TS=<span class="math inline">\((b_1-1)/SE(b_1)\)</span> reject null hypothesis when test statistics is large negative 5% critical value is -1.65</p></li>
 </ul>
 </section>
 <section id="section-3" class="slide level2">
@@ -402,7 +402,7 @@
 <h2>Dickey Fuller (DF) approach to non-stationary testing</h2>
 <p>Dickey and Fuller (1979) suggest we subtract <span class="math inline">\(Y_{t-1}\)</span> from both sides of eq(1).</p>
 <p><span class="math inline">\(Y_t-Y_{t-1}=b_0+b_1Y_{t-1}-Y_{t-1}+\epsilon_t \\ \epsilon_t~iid(0,\sigma^2)\)</span></p>
-<p><span class="math display">\[\Delta{Y_t}= b_0+\beta Y\_{t-1}+\epsilon_t \\\beta=b_1-1\]</span></p>
+<p><span class="math display">\[\Delta{Y_t}= b_0+\beta Y_{t-1}+\epsilon_t \\\beta=b_1-1\]</span></p>
 <p>Use a t-test with: null <span class="math inline">\(H_0: \beta=0\)</span> (non-stationary or <strong>Unit Root</strong>) against alternative <span class="math inline">\(H_0: \beta&lt;0\)</span></p>
 <ul>
 <li>Large negative test statistics reject non-stationary</li>
@@ -435,7 +435,7 @@
 <p>Sample size of n=25 at 5% level of signinficance for eq(2)</p>
 <p><span class="math inline">\(\tau\)</span> - critical value=-3.00</p>
 <p>t-test critical value=-1.65</p>
-<p><span class="math inline">\(\Delta p_{t-1}=-0.007-0.190p_{t-1} \\ (-1.05) (-1.49)\)</span></p>
+<p><span class="math inline">\(\Delta p_t=-0.007-0.190p_{t-1} \\ (-1.05) (-1.49)\)</span></p>
 <p><span class="math inline">\(\beta=-0.0190\)</span> <span class="math inline">\(\tau_{\mu}=-1.49&gt;-3.00\)</span></p>
 <p>hence cannot reject <span class="math inline">\(H_0\)</span> and so unit root.</p>
 </section>
@@ -444,9 +444,9 @@
 <p>Some time series clearly display an upward or downward trend (non-stationary mean). Should therefore incorporate trend in the regression used for the DF test.</p>
 <p><span class="math inline">\(\Delta Y=b_0+\beta Y_{t-1}+b_2 trend+\epsilon\)</span> –&gt;(4) It may be the case that <span class="math inline">\(Y_t\)</span> will be stationary around a trend, although if a trend is not included series is non-stationary.</p>
 <ol type="a">
-<li><p><span class="math inline">\(H_0=\beta=0 \\H_a:\beta&lt;0\)</span> <span class="math inline">\(\tau_{\tau} \\\Delta Y_t=b_0+\beta Y_{t-1}+b_2 trend+\epsilon\)</span></p></li>
+<li><p><span class="math inline">\(H_0=\beta=0 \\H_a:\beta&lt;0\)</span> <span class="math inline">\(\tau \\\Delta Y_t=b_0+\beta Y_{t-1}+b_2 trend+\epsilon\)</span></p></li>
 <li><p><span class="math inline">\(H_0=\beta=0 \\H_a:\beta&lt;0\)</span> <span class="math inline">\(\tau_{\mu} \\\Delta Y_t=b_0+\beta Y_{t-1}+\epsilon\)</span></p></li>
-<li><p><span class="math inline">\(H_0=\beta=0 \\H_a:\beta&lt;0\)</span> <span class="math inline">\(\tau_{\mu} \\\Delta Y_t=\beta Y_{t-1}+\epsilon\)</span> Critical values from Fuller (1976)</p></li>
+<li><p><span class="math inline">\(H_0=\beta=0 \\H_a:\beta&lt;0\)</span> <span class="math inline">\(\tau_{\tau} \\\Delta Y_t=\beta Y_{t-1}+\epsilon\)</span> Critical values from Fuller (1976)</p></li>
 </ol>
 </section>
 <section id="section-5" class="slide level2">
