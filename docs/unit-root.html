@@ -518,10 +518,169 @@ Trade-off parsimony vs.&nbsp;residual variance</p>
 <h2>Unit Root Testing</h2>
 <p>1) Plot first difference of time series- Stationary</p>
 
-<img data-src="images/paste-545C4AD8.png" class="r-stretch"><div class="footer footer-default">
+<img data-src="images/paste-545C4AD8.png" class="r-stretch"></section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div>
+<p><img data-src="images/paste-DC77E919.png"></p>
+</div>
+</div>
+<div>
+<p><img data-src="images/paste-3A9B6966.png"></p>
+</div>
+<p>:::</p>
+<p>:::</p>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<table>
+<caption>Table 4.1: Selected Autocorrelation From Nelson and Plosser</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>Rho1</th>
+<th>Rho2</th>
+<th>r(1)</th>
+<th>r(2)</th>
+<th>d(1)</th>
+<th>d(2)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Real GNP</td>
+<td>0.95</td>
+<td>0.90</td>
+<td>34</td>
+<td>0.04</td>
+<td>0.87</td>
+<td>0.66</td>
+</tr>
+<tr class="even">
+<td>Nominal GNP</td>
+<td>0.95</td>
+<td>0.89</td>
+<td>0.44</td>
+<td>0.08</td>
+<td>0.93</td>
+<td>0.79</td>
+</tr>
+<tr class="odd">
+<td>Industrial Production</td>
+<td>0.97</td>
+<td>0.94</td>
+<td>0.03</td>
+<td>-0.11</td>
+<td>0.84</td>
+<td>0.67</td>
+</tr>
+<tr class="even">
+<td>Unemployment Rate</td>
+<td>0.75</td>
+<td>0.47</td>
+<td>0.09</td>
+<td>-0.29</td>
+<td>0.75</td>
+<td>0.46</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+
+<img data-src="images/paste-56ABF03F.png" class="r-stretch"></section>
+<section id="unit-roots-and-regression-residuals" class="slide level2">
+<h2>Unit Roots and Regression Residuals</h2>
+<p><span class="math inline">\(y_t=b_0+b_1 Z_t+\epsilon_t\)</span></p>
+<ul>
+<li><p>Assumptions of the classical model:</p>
+<ul>
+<li><p>both the <span class="math inline">\(y_t\)</span> and <span class="math inline">\(z_t\)</span> sequences be stationary</p></li>
+<li><p>the errors have a zero mean and a finite variance.</p></li>
+<li><p>In the presence of nonstationary variables, there might be what Grander and Newbold(1974) call a <strong>spurious regression</strong></p></li>
+</ul></li>
+<li><p>A spurious regression has a high <span class="math inline">\(R^2\)</span> and <span class="math inline">\(t-statistics\)</span> that appear to be significant, but the results are without any economic meaning.</p></li>
+<li><p>The regression output “looks good” because the least squares estimates are not consistent and the customary tests of statistical inference do not hold.</p></li>
+</ul>
+</section>
+<section id="four-cases" class="slide level2">
+<h2>Four cases</h2>
+<ul>
+<li><strong>CASE 1</strong> : Both {yt} and {zt} are stationary.
+<ul>
+<li>the classical regression model is appropriate.</li>
+</ul></li>
+<li><strong>CASE 2</strong> : The {yt} and {zt} sequences are integrated of different orders.
+<ul>
+<li>Regression equations using such variables are meaningless</li>
+</ul></li>
+<li><strong>CASE 3</strong> : The nonstationary {yt} and {zt} sequences are integrated of the same order and the residual sequence contains a stochastic trend.
+<ul>
+<li><p>This is the case in which the regression is spurious.</p></li>
+<li><p>In this case, it is often recommended that the regression equation be estimated in first differences.</p></li>
+</ul></li>
+<li><strong>CASE 4</strong>: The nonstationary {yt} and {zt} sequences are integrated of the same order and the residual sequence is stationary.
+<ul>
+<li>In this circumstance, {yt} and {zt} are cointegrated.</li>
+</ul></li>
+</ul>
+</section>
+<section id="spurious-regression-example-1" class="slide level2">
+<h2>Spurious regression: example 1</h2>
+<p><img data-src="images/paste-CA0E9C0B.png"></p>
+<p><img data-src="images/paste-181B2A5B.png"></p>
+</section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+</section>
+<section id="quarterly-real-u.s.-gdp" class="slide level2">
+<h2>Quarterly Real U.S. GDP</h2>
+
+<img data-src="images/paste-05588AC4.png" class="r-stretch"><p>The t-statistic on the coefficient for lrgdpt–1 is -2.59. Table indicates that with 244 usable observations, the 10% and 5% critical value of <span class="math inline">\(\tau_{\tau}\)</span> are about -3.13 and -3.43, respectively. As such, we cannot reject the null hypothesis of a unit root.</p>
+<p>The sample value of <span class="math inline">\(\phi_3\)</span> for the null hypothesis b2 = <span class="math inline">\(\beta\)</span> = 0 is 4.12. As Table B indicates that the 10% critical value is 5.39, we cannot reject the joint hypothesis of a unit root and no deterministic time trend. The sample value of <span class="math inline">\(\phi_2\)</span> is 20.20. As such, the growth rate of the real GDP series acts as a random walk plus drift plus the irregular term <span class="math inline">\(0.3426\Delta lrgdp_{t–1}\)</span>.</p>
+</section>
+<section id="real-exchange-rate-estimation" class="slide level2">
+<h2>Real Exchange Rate Estimation</h2>
+
+<img data-src="images/paste-B8022CEA.png" class="r-stretch"></section>
+<section>
+<section id="general-to-specific-or-specific-to-general-techinque" class="title-slide slide level1 center">
+<h1>General to Specific or Specific to General Techinque</h1>
+
+</section>
+<section id="multiple-roots" class="slide level2">
+<h2>Multiple Roots</h2>
+<p><span class="math inline">\(\Delta^2 y_t=b_0+\beta_1 \Delta y_{t-1}+\epsilon_t\)</span></p>
+<p>If <span class="math inline">\(\beta_1\)</span> does differ from zero, estimate</p>
+<p><span class="math inline">\(\Delta^2 y_t=b_0+\beta_1 \Delta y_{t-1}+\beta_2 y_{t-1} +\epsilon_t\)</span></p>
+<p>If you reject the null hypothesis <span class="math inline">\(\beta_2\)</span>=0, conclude <span class="math inline">\(y_t\)</span> is stationary.</p>
+</section></section>
+<section>
+<section id="seasonal-unit-roots-will-skip" class="title-slide slide level1 center">
+<h1>Seasonal Unit Roots (will skip)</h1>
+
+</section>
+<section id="panel-unit-root-tests" class="slide level2">
+<h2>Panel Unit Root Tests</h2>
+<p><span class="math inline">\(\Delta y_{it}=b_{io}+\gamma_i y_{it-1}+\sum_{i=1}^n p_i \Delta y_{it-j}+\epsilon_{it}\)</span> &gt; One way to obtain a more powerful test is to pool the estimates from a number separate series and then test the pooled value. The theory underlying the test is very simple: if you have n independent and unbiased estimates of a parameter, the mean of the estimates is also unbiased. More importantly, so long as the estimates are independent, the central limit theory suggests that the sample mean will be normally distributed around the true mean.</p>
+<ul>
+<li><pre><code>The difficult issue is to correct for cross equation correlation</code></pre></li>
+<li>Because the lag lengths can differ across equations, you should perform separate lag length tests for each equation. Moreover, you may choose to exclude the deterministic time trend. However, if the trend is included in one equation, it should be included in all</li>
+</ul>
+</section>
+<section id="limitations" class="slide level2">
+<h2>Limitations</h2>
+<ul>
+<li><p>The null hypothesis for the IPSE test <span class="math inline">\(\gamma_1=\gamma_2=...=\gamma_1=0\)</span>. Reject of the null hypothesis means that at least one of the <span class="math inline">\(\gamma_i's\)</span> differs from zero.</p></li>
+<li><p>At this point, there is substantial disagreement about the asymptotic theory underlying the test. Sample size can approach infinity by increasing n for a given T, increasing T for a given n, or by simultaneously increasing n and T.</p></li>
+<li><p>For small T and large n, the critical values are dependent on the magnitudes of the various <span class="math inline">\(\beta_{ij}\)</span>. The test requires that that the error terms be serially uncorrelated and contemporaneously uncorrelated. You can determine the values of <span class="math inline">\(p_i\)</span> to ensure that the autocorrelations of <span class="math inline">\(\epsilon_{it}\)</span> are zero. Nevertheless, the errors may be contemporaneously correlated in that <span class="math inline">\(E(\epsilon_{it}\epsilon_{jt})\neq 0\)</span> The example above illustrates a common technique to correct for correlation across equations. As in the example, you can subtract a common time effect from each observation. However, there is no assurance that this correction will completely eliminate the correlation. Moreover, it is quite possible that is nonstationary. Subtracting a nonstationary component from each sequence is clearly at odds with the notion that the variables are stationary.</p></li>
+</ul>
+<div class="footer footer-default">
 <p><a href="https://zahidasghar.com">Zahid Asghar</a></p>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
