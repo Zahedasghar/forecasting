@@ -1,0 +1,9 @@
+\contentsline {subsection}{\nonumberline Introduction}{1}{subsection*.3}%
+\contentsline {subsection}{\nonumberline A Causal Relationship: A Consumption Function}{1}{subsection*.5}%
+\contentsline {subsection}{\nonumberline A Spurious Regression: Correlation without Causation}{6}{subsection*.9}%
+\contentsline {subsection}{\nonumberline The Distinction Between Nominal and Real Econometrics}{7}{subsection*.11}%
+\contentsline {subsection}{\nonumberline The Nominalist Solutions}{7}{subsection*.13}%
+\contentsline {subsection}{\nonumberline Missing Variables}{8}{subsection*.15}%
+\contentsline {subsection}{\nonumberline Variable Transformation to Stationarity:}{8}{subsection*.17}%
+\contentsline {subsection}{\nonumberline Concluding Remarks}{15}{subsection*.25}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
