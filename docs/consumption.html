@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zahid Asghar ">
+<meta name="dcterms.date" content="2022-12-17">
+
+<title>Keynes Consumption Function Modeling for Pakistan</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="consumption_files/libs/clipboard/clipboard.min.js"></script>
+<script src="consumption_files/libs/quarto-html/quarto.js"></script>
+<script src="consumption_files/libs/quarto-html/popper.min.js"></script>
+<script src="consumption_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="consumption_files/libs/quarto-html/anchor.min.js"></script>
+<link href="consumption_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="consumption_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="consumption_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="consumption_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="consumption_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="consumption_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="consumption_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section-1-keynesian-consumption-function" id="toc-section-1-keynesian-consumption-function" class="nav-link active" data-scroll-target="#section-1-keynesian-consumption-function">Section 1: Keynesian Consumption Function</a></li>
+  <li><a href="#what-to-do-when-errors-are-not-independent" id="toc-what-to-do-when-errors-are-not-independent" class="nav-link" data-scroll-target="#what-to-do-when-errors-are-not-independent">2. What to do when errors are not independent?</a></li>
+  <li><a href="#static-versus-dynamic-models" id="toc-static-versus-dynamic-models" class="nav-link" data-scroll-target="#static-versus-dynamic-models">STATIC VERSUS DYNAMIC MODELS</a>
+  <ul class="collapse">
+  <li><a href="#general-to-simple-vs.-simple-to-general-modelling" id="toc-general-to-simple-vs.-simple-to-general-modelling" class="nav-link" data-scroll-target="#general-to-simple-vs.-simple-to-general-modelling">General-to-Simple vs.&nbsp;Simple-to-General Modelling:</a></li>
+  </ul></li>
+  <li><a href="#larger-model" id="toc-larger-model" class="nav-link" data-scroll-target="#larger-model">Larger Model</a></li>
+  <li><a href="#multicolinearity-and-economic-rationale" id="toc-multicolinearity-and-economic-rationale" class="nav-link" data-scroll-target="#multicolinearity-and-economic-rationale">Multicolinearity and economic rationale</a></li>
+  <li><a href="#summary-and-conclusion" id="toc-summary-and-conclusion" class="nav-link" data-scroll-target="#summary-and-conclusion">Summary and conclusion</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Keynes Consumption Function Modeling for Pakistan</h1>
+<p class="subtitle lead">Model Selection, Multicollinearity, G2S <br> Course: Economic Forecasting and Modeling</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><em>Zahid Asghar </em> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 17, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="section-1-keynesian-consumption-function" class="level2">
+<h2 class="anchored" data-anchor-id="section-1-keynesian-consumption-function">Section 1: Keynesian Consumption Function</h2>
+<p>Time series models are those where the data occurs in sequential time periods, so that there is a concept of progression of time. As opposed to this we have cross section models, where the data is from the same period of time but taken from different places. Within time series models, the simplest type is the static model. In static models, all the action takes place within one time period, and there is no effect of activity in one time period on the next. The simplest consumption function is the Keynesian consumption function, which is a static function. It says that current consumption depends only on current income, so that <span class="math inline">\(C_t = f(Y_t)\)</span>. Assuming that the function is linear, and that there can be a random error, leads to the simplest Keynesian consumption function: <span class="math inline">\(C_t =\alpha + \beta Y_t + \epsilon_t\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Read data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="ot">&lt;-</span><span class="fu">read_dta</span>(<span class="st">"Consumption_Income_Pakistan.dta"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="sc">$</span>year<span class="ot">&lt;-</span><span class="fu">as_date</span>(cons_inc<span class="sc">$</span>year)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="ot">&lt;-</span>cons_inc <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Trend=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">52</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Data on annual indome and consumption for Pakistan (with some approximations mainly from WDI) has been used for this lecture.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cons_inc&lt;-ts(con_inc,start = 1960, end=2019)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#cons_inc&lt;-as_tibble(con_inc)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cons_inc)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>year)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> C), <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Y), <span class="at">color=</span><span class="st">"steelblue"</span>, <span class="at">linetype=</span><span class="st">"twodash"</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Income per capita"</span>,<span class="at">y=</span><span class="st">"Consumption per captia"</span>,<span class="at">title =</span> <span class="st">"Consumption Income pattern over time for Pakistan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="consumption_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The Keynesian consumption function is one of the most widely accepted and estimated regression models. The causal hypothesis is that Income (GDP) determines Consumption (Con): GDP <span class="math inline">\(Rightarrow\)</span> Con. The simplest regression model which embodies this relationship is: <span class="math inline">\(C = \alpha + \beta Y\)</span>. Running this regression on the data leads to the following results:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 52 × 5
+      ID     C     Y C_hat residual
+   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1     1  327.  404.  313.   14.7  
+ 2     2  326.  422.  327.   -0.527
+ 3     3  348.  433.  336.   12.8  
+ 4     4  380.  469.  364.   15.8  
+ 5     5  365.  459.  356.    9.18 
+ 6     6  356.  450.  349.    6.70 
+ 7     7  367.  469.  364.    3.28 
+ 8     8  396.  472.  366.   29.7  
+ 9     9  405.  478.  371.   33.7  
+10    10  393.  488.  379.   14.2  
+# … with 42 more rows</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="consumption_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)   -4.42    15.4       -0.286 7.76e- 1
+2 Y              0.785    0.0197    39.9   1.46e-39</code></pre>
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> Model 1 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:center;"> −4.418 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (15.424) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Y </td>
+   <td style="text-align:center;"> 0.785 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px"> (0.020) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 52 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.970 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 Adj. </td>
+   <td style="text-align:center;"> 0.969 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AIC </td>
+   <td style="text-align:center;"> 509.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BIC </td>
+   <td style="text-align:center;"> 515.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Log.Lik. </td>
+   <td style="text-align:center;"> −251.556 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:center;"> 1589.518 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 30.53 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>The regression has <span class="math inline">\(R^2\)</span> of 0.97, which is interpreted to mean that <span class="math inline">\(97\%\)</span> of the variation in Pakistani Consumption can be explained by the Pakistani GDP. The <span class="math inline">\(t-stat=39\)</span> shows that the coefficient income is highly significant. The <span class="math inline">\(p-value\)</span> of <span class="math inline">\(0.000\)</span> means we can reject the null hypothesis that the true coefficient is zero, corresponding to the idea that <span class="math inline">\(Y\)</span> has no influence on <span class="math inline">\(C\)</span>. Validity of regression results depends on a large number of assumptions, which are discussed in econometrics textbooks.</p>
+<p>Here are the results of regressing Per Capita consumption in Pakistan on Per Capita GDP from 1967 to 2018. A plot of the regression residuals is given below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#acf(resid)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pacf(resid)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#adf.test(resid)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="sc">|&gt;</span><span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 52
+Columns: 9
+$ year    &lt;date&gt; 1975-05-22, 1975-05-23, 1975-05-24, 1975-05-25, 1975-05-26, 1…
+$ C       &lt;dbl&gt; 327.4169, 326.1967, 348.4950, 380.0568, 365.3227, 356.0221, 36…
+$ Y       &lt;dbl&gt; 403.7697, 421.6062, 433.0744, 469.4377, 459.0634, 450.3759, 46…
+$ lnc     &lt;dbl&gt; 5.791234, 5.787500, 5.853624, 5.940320, 5.900781, 5.874993, 5.…
+$ lny     &lt;dbl&gt; 6.000845, 6.044072, 6.070910, 6.151536, 6.129189, 6.110083, 6.…
+$ c_y     &lt;dbl&gt; 0.9650698, 0.9575499, 0.9642087, 0.9656647, 0.9627345, 0.96152…
+$ cdividy &lt;dbl&gt; 0.8109000, 0.7737000, 0.8047000, 0.8096000, 0.7958000, 0.79050…
+$ Trend   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,…
+$ resid   &lt;dbl&gt; 14.702276, -0.527145, 12.763683, 15.764683, 9.178845, 6.701742…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cons_inc)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>resid)<span class="sc">+</span><span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="consumption_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>One of the central assumptions is that the regression residuals should be random, and should come from a common distribution. To check whether or not this holds, we graph the regression residuals, the differences between the actual value and the regression fit:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="consumption_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This plot shows serious problems, since these residuals display systematic behavior. They are all negative and small early. To see how these patterns differ from independent random variables, we provide a graph of independent random variables with mean 0 and standard error 4.579, matching the estimated regression model standard error. The Keynesian consumption function is one of the most widely accepted and estimated regression models. The causal hypothesis is that Income (GDP) determines Consumption (Con): GDP <span class="math inline">\(\Rightarrow\)</span> Con. The simplest regression model which embodies this relationship is: Con = a + b GDP. Running this regression on the data leads to the following results:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="consumption_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Random residuals frequently switch signs. They do not display any patterns in sequencing. The patterned residuals in the consumption function prove that the regression is not valid. In such situations, econometricians typically assume that the problem is due to missing regressors or wrong functional form. By adding suitable additional regressors, and modifying the functional form, one can generally ensure that the residuals appear to satisfy the assumptions made about them.</p>
+</section>
+<section id="what-to-do-when-errors-are-not-independent" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-do-when-errors-are-not-independent">2. What to do when errors are not independent?</h2>
+<p>Note that <span class="math inline">\(e_t=y_t-\hat{b}x_t\)</span> and <span class="math inline">\(e_{t-1}=y_{t-1}-\hat{b}x_{t-1}\)</span>. A relationship between the two errors shows that what happens in period <span class="math inline">\(t-1\)</span> has an effect on what happens in period <span class="math inline">\(t\)</span>. In other words, we have a dynamic model instead of a static model.</p>
+</section>
+<section id="static-versus-dynamic-models" class="level2">
+<h2 class="anchored" data-anchor-id="static-versus-dynamic-models">STATIC VERSUS DYNAMIC MODELS</h2>
+<p>A model of the type <span class="math inline">\(C_t = a + b Y_t + e_t\)</span> is called a static model. Events in time period <span class="math inline">\(t\)</span> are isolated from those of period <span class="math inline">\(t-1\)</span> and <span class="math inline">\(t+1\)</span>. As opposed to this, if data from period <span class="math inline">\(t-1\)</span> enters into the equation for period <span class="math inline">\(t\)</span>, then we have dynamic model.</p>
+<p>Suppose that we conduct tests and learn that <span class="math inline">\(e_t\)</span> is correlated with <span class="math inline">\(e_{t-1}\)</span>. Note that <span class="math inline">\(e_{t-1}=C_{t-1}-a-bY_{t-1}\)</span>. It follows that <span class="math inline">\(C_{t-1}\)</span> and <span class="math inline">\(Y_{t-1}\)</span> have an effect on current consumption.</p>
+<p>The main message of correlated residuals is that variables from one period ago have an effect on current period.</p>
+<p>Thus in order to fix up the problem of correlated residuals, we need to build a dynamic model. The simplest dynamic extension of the Keynesian model is the following: <span class="math display">\[C_t=a+bY_t+cC_{t-1}+dY_{t-1}+e_t\]</span></p>
+<p>We put in ALL the information we have about ALL the variables in the model at period <span class="math inline">\(t-1\)</span>. Similarly we could go back to period <span class="math inline">\(t-2\)</span>.</p>
+<section id="general-to-simple-vs.-simple-to-general-modelling" class="level3">
+<h3 class="anchored" data-anchor-id="general-to-simple-vs.-simple-to-general-modelling">General-to-Simple vs.&nbsp;Simple-to-General Modelling:</h3>
+<p>In fixing problems detected by tests, there are two strategies which are commonly used. The older and more traditional strategy is called the bottom-up or simple-to-general strategy. In this strategy, we would start with the simplest model, which is a static Keynesian model. Then we note that the errors are correlated. Then we make the simplest dynamic extension. Next we test the errors. If the problem of autocorrelation has been eliminated then we stop here. If there is still autocorrelation, it follows that a higher order dynamic model is needed. So we go to a second order model. We keep increasing the order (and complexity) of the model until we get to a point where the errrors are not autocorrelated. This is one aspect of simple-to-general modelling.</p>
+<p>The alternative to this which has recently been proposed, and shown to have superior properties, is general to simple modelling. In this method, we note that errors seem to be correlated upto the fourth order. So we start with a fourth order dynamic model. In general the goal is to start with the biggest model you might possibly need and simplify it down to a simpler model. This is called the top-down or general to simple strategy. We have illustrated this on the data set as well. The final model which emerges from our analysis is <span class="math inline">\(C_t = a + b Y_t + c C_{t-1} + e_t\)</span>. However, this model suffers from both structural change and heteroskedasticity. This suggests that we should try a log transformation to get rid of the heteroskedasticity. Perhaps this will eliminate or reduce the structural change problem as well.</p>
+<p>the simple Keynesian consumption function <span class="math inline">\(C_t= a + bY_t + e_t\)</span> failed several tests on Pakistani data – it has autocorrelated errors, heteroskedasticity (via GQ but not White), and also fails the CHOW test for structural stability.</p>
+<p>How should we proceed? Experience with consumption functions shows that they very often have dynamic properties. This is indicated by the autocorrelation of the errors as well. Thus we try the simplest dynamic extension:</p>
+</section>
+</section>
+<section id="larger-model" class="level2">
+<h2 class="anchored" data-anchor-id="larger-model">Larger Model</h2>
+<p>We start with <strong>General to Specific</strong> approach and include upto three lags of both consumption and income. There is no hard and fast rule but it is suggested that number of regressors should not exceed number of observations. We have in total 52 observations we can select 3 or 4 lages of each (had it been quarterly data we would have selected 4 lags of each). Some studies suggest to have regressor should not exceed one third of the total number of observations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g2s<span class="ot">&lt;-</span><span class="fu">lm</span>(C<span class="sc">~</span>Y<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">2</span>)<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">2</span>)<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">3</span>)<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">3</span>),<span class="at">data=</span>cons_inc)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(g2s,<span class="at">estimate =</span> <span class="fu">c</span>(<span class="st">"{estimate} ({std.error}){stars}"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> Model 1 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:center;"> −8.881 (8.590) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (8.590) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Y </td>
+   <td style="text-align:center;"> 0.618 (0.169)*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.169) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(Y, 1) </td>
+   <td style="text-align:center;"> −0.118 (0.296) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.296) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(C, 1) </td>
+   <td style="text-align:center;"> 0.798 (0.156)*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.156) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(Y, 2) </td>
+   <td style="text-align:center;"> −0.544 (0.297)+ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.297) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(C, 2) </td>
+   <td style="text-align:center;"> 0.114 (0.189) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.189) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(Y, 3) </td>
+   <td style="text-align:center;"> 0.105 (0.214) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.214) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(C, 3) </td>
+   <td style="text-align:center;"> 0.025 (0.159) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px"> (0.159) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 49 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.993 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 Adj. </td>
+   <td style="text-align:center;"> 0.992 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AIC </td>
+   <td style="text-align:center;"> 417.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BIC </td>
+   <td style="text-align:center;"> 434.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Log.Lik. </td>
+   <td style="text-align:center;"> −199.494 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:center;"> 817.725 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 14.19 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Results indicate that Y and first lag of C are highly significant and second lag of Y is significant at 10%. So by standard statistical procedure, one should drop all variables and re-run the regression with significant variables as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g2s1<span class="ot">&lt;-</span><span class="fu">lm</span>(C<span class="sc">~</span>Y<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">2</span>),<span class="at">data=</span>cons_inc)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(g2s1,<span class="at">estimate =</span> <span class="fu">c</span>(<span class="st">"{estimate} ({std.error}){stars}"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> Model 1 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:center;"> −7.094 (8.024) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (8.024) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Y </td>
+   <td style="text-align:center;"> 0.527 (0.101)*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.101) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(C, 1) </td>
+   <td style="text-align:center;"> 0.896 (0.071)*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.071) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(Y, 2) </td>
+   <td style="text-align:center;"> −0.438 (0.097)*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px"> (0.097) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 50 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.993 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 Adj. </td>
+   <td style="text-align:center;"> 0.992 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AIC </td>
+   <td style="text-align:center;"> 419.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BIC </td>
+   <td style="text-align:center;"> 429.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Log.Lik. </td>
+   <td style="text-align:center;"> −204.854 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:center;"> 2082.114 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 14.56 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Oh great now we have all the variables are highly significant and if residuals satisfy all standard assumptions, it will be perfect fit. So lets have a look at the residuals behavior.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(g2s1,<span class="at">plots =</span> <span class="st">'default'</span>,<span class="at">smoother =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="consumption_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Well it seems all is perfect. But what about <strong>theoretical interpretation</strong>.</p>
+</section>
+<section id="multicolinearity-and-economic-rationale" class="level2">
+<h2 class="anchored" data-anchor-id="multicolinearity-and-economic-rationale">Multicolinearity and economic rationale</h2>
+<p>Now if we interpret and explain our model, it will be little odd to say that consumption is function of current income, last year consumption and 2 years lagged income. As first two coefficient makes sense and we shall also learn about these later on as well. But instead of first lag of income , what does explain second lag to be in the model either needs a very solid reason or explore your econometric model little more.</p>
+<p>As in time series data there is very high correlation of variables with their own lagged values. So lets have a look at the correlation matrix and observe how highly they are correlated with each other.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="ot">&lt;-</span>cons_inc<span class="sc">|&gt;</span><span class="fu">mutate</span>(<span class="at">lagY1=</span><span class="fu">lag</span>(Y,<span class="dv">1</span>),<span class="at">lagY2=</span><span class="fu">lag</span>(Y,<span class="dv">2</span>),<span class="at">lagY3=</span><span class="fu">lag</span>(Y,<span class="dv">3</span>),<span class="at">lagC1=</span><span class="fu">lag</span>(C,<span class="dv">1</span>),<span class="at">lagC2=</span><span class="fu">lag</span>(C,<span class="dv">2</span>),<span class="at">lagC3=</span><span class="fu">lag</span>(C,<span class="dv">3</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>M<span class="ot">&lt;-</span>cons_inc<span class="sc">|&gt;</span><span class="fu">select</span>(C,Y,lagY1,lagY2,lagY3,lagC1,lagC2,lagC3)<span class="sc">|&gt;</span><span class="fu">na.omit</span>()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>M1<span class="ot">&lt;-</span><span class="fu">cor</span>(M)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(M1,<span class="at">method =</span> <span class="st">'number'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="consumption_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This correlation plot indicated very correlation between variables and their lags which implies these variables have very high multicollinearity and indicating they are almost perfect substitutes. Economic rationale suggests that first lag of income should be more relevant in explaining current consumption than that of second lag of income. Correlation between lag(Y,1) and lag(Y,2) is 0.997, therefore, lets use first lag of Y in the model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>g2s2<span class="ot">&lt;-</span><span class="fu">lm</span>(C<span class="sc">~</span>Y<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">1</span>),<span class="at">data=</span>cons_inc)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(g2s2,<span class="at">estimate =</span> <span class="fu">c</span>(<span class="st">"{estimate} ({std.error}){stars}"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> Model 1 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:center;"> −7.375 (7.985) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (7.985) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Y </td>
+   <td style="text-align:center;"> 0.727 (0.156)*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.156) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(C, 1) </td>
+   <td style="text-align:center;"> 0.903 (0.074)*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.074) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lag(Y, 1) </td>
+   <td style="text-align:center;"> −0.639 (0.161)*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px"> (0.161) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 51 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.992 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 Adj. </td>
+   <td style="text-align:center;"> 0.992 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AIC </td>
+   <td style="text-align:center;"> 430.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BIC </td>
+   <td style="text-align:center;"> 440.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Log.Lik. </td>
+   <td style="text-align:center;"> −210.392 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:center;"> 2067.854 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 14.98 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Oh that makes sense.</p>
+</section>
+<section id="summary-and-conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="summary-and-conclusion">Summary and conclusion</h2>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

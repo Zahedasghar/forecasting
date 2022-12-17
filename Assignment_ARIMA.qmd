@@ -5,17 +5,17 @@ format: pdf
 editor: visual
 ---
 
-## Assignment 
+## Assignment
 
 It is due Friday November 18th by 5pm. Submissions should be uploaded to the Submission google assignment link https://classroom.google.com/c/Mzc1MjIwNzE3MzRa/a/NDkxODU1NDE5NDMz/details. Feel free to prepare your answers on your computer or write by hand, scan it as a DOCX/PDF file, or take pictures and upload the JPG files. Only JPG, DOCX, or PDF formats will be accepted. Do not submit/email your answers to me. Complete the following exercises and show your work.
 
 1\. (50 points) In this problem, we are interested in the time series properties of bond returns. We collect monthly data from 1942M01 to 2021M12 for the following variables:
 
--    b1ret denotes the 1-year bond return,
+-   b1ret denotes the 1-year bond return,
 
--    t30ret denotes the 30-day return on treasury bill,
+-   t30ret denotes the 30-day return on treasury bill,
 
--    cpiret denotes the inflation rate.
+-   cpiret denotes the inflation rate.
 
 We will be focusing on the bond return variable b1ret throughout this analysis. Create a second variable b1ret1 from the original variable, where b1ret1 has observations from 1942M01 to 2020M12. We will be using b1ret1 for estimation, and forecast the months of 2021 at the end.
 
@@ -31,11 +31,11 @@ You can find the dataset titled "BondReturns.csv" under the Course Resources on 
 
 \(e\) (10 points) Using your final ARIMA model and the trend model in part (b), forecast the months of 2021. (f) (5 points) Discuss if these forecasts are reasonable. Explain your reasoning.
 
-###  2. (50 points) 
+### 2. (50 points)
 
 In this problem, we are interested in examining the factors affecting the petrol prices. Petrol prices in New Zealand is split into three components: importer cost, importer's margin, and the taxes. We collect the weekly data on the following variables from 2004W16 (week 16) to 2020W23 (week 23):
 
--    Dubai denotes the Dubai crude oil prices,
+-   Dubai denotes the Dubai crude oil prices,
 
 -   Price denotes the discounted retail petrol price,
 
