@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zahid Asghar ">
-<meta name="dcterms.date" content="2022-12-17">
+<meta name="dcterms.date" content="2022-12-18">
 
-<title>Keynes Consumption Function Modeling for Pakistan</title>
+<title>Understanding econometric with simple   Consumption Function Model: Pakistan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -114,13 +114,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#section-1-keynesian-consumption-function" id="toc-section-1-keynesian-consumption-function" class="nav-link active" data-scroll-target="#section-1-keynesian-consumption-function">Section 1: Keynesian Consumption Function</a></li>
+  <li><a href="#section-1-keynesian-consumption-function" id="toc-section-1-keynesian-consumption-function" class="nav-link active" data-scroll-target="#section-1-keynesian-consumption-function">Section 1: Keynesian Consumption Function</a>
+  <ul class="collapse">
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">Load data</a></li>
+  </ul></li>
   <li><a href="#what-to-do-when-errors-are-not-independent" id="toc-what-to-do-when-errors-are-not-independent" class="nav-link" data-scroll-target="#what-to-do-when-errors-are-not-independent">2. What to do when errors are not independent?</a></li>
   <li><a href="#static-versus-dynamic-models" id="toc-static-versus-dynamic-models" class="nav-link" data-scroll-target="#static-versus-dynamic-models">STATIC VERSUS DYNAMIC MODELS</a>
   <ul class="collapse">
   <li><a href="#general-to-simple-vs.-simple-to-general-modelling" id="toc-general-to-simple-vs.-simple-to-general-modelling" class="nav-link" data-scroll-target="#general-to-simple-vs.-simple-to-general-modelling">General-to-Simple vs.&nbsp;Simple-to-General Modelling:</a></li>
   </ul></li>
-  <li><a href="#larger-model" id="toc-larger-model" class="nav-link" data-scroll-target="#larger-model">Larger Model</a></li>
+  <li><a href="#dynamic-model" id="toc-dynamic-model" class="nav-link" data-scroll-target="#dynamic-model">Dynamic Model</a></li>
   <li><a href="#multicolinearity-and-economic-rationale" id="toc-multicolinearity-and-economic-rationale" class="nav-link" data-scroll-target="#multicolinearity-and-economic-rationale">Multicolinearity and economic rationale</a></li>
   <li><a href="#summary-and-conclusion" id="toc-summary-and-conclusion" class="nav-link" data-scroll-target="#summary-and-conclusion">Summary and conclusion</a></li>
   </ul>
@@ -130,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Keynes Consumption Function Modeling for Pakistan</h1>
+<h1 class="title">Understanding econometric with simple <br> Consumption Function Model: Pakistan</h1>
 <p class="subtitle lead">Model Selection, Multicollinearity, G2S <br> Course: Economic Forecasting and Modeling</p>
 </div>
 
@@ -148,7 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 17, 2022</p>
+      <p class="date">December 18, 2022</p>
     </div>
   </div>
   
@@ -162,25 +165,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="section-1-keynesian-consumption-function">Section 1: Keynesian Consumption Function</h2>
 <p>Time series models are those where the data occurs in sequential time periods, so that there is a concept of progression of time. As opposed to this we have cross section models, where the data is from the same period of time but taken from different places. Within time series models, the simplest type is the static model. In static models, all the action takes place within one time period, and there is no effect of activity in one time period on the next. The simplest consumption function is the Keynesian consumption function, which is a static function. It says that current consumption depends only on current income, so that <span class="math inline">\(C_t = f(Y_t)\)</span>. Assuming that the function is linear, and that there can be a random error, leads to the simplest Keynesian consumption function: <span class="math inline">\(C_t =\alpha + \beta Y_t + \epsilon_t\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-<p>Read data</p>
+<section id="load-data" class="level3">
+<h3 class="anchored" data-anchor-id="load-data">Load data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="ot">&lt;-</span><span class="fu">read_dta</span>(<span class="st">"Consumption_Income_Pakistan.dta"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="sc">$</span>year<span class="ot">&lt;-</span><span class="fu">as_date</span>(cons_inc<span class="sc">$</span>year)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="ot">&lt;-</span>cons_inc <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Trend=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">52</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-<p>Data on annual indome and consumption for Pakistan (with some approximations mainly from WDI) has been used for this lecture.</p>
+<p>Data on annual income and consumption for Pakistan with some approximations due to definition issues of consumption expenditure over time (main source :WDI) has been used for this lecture. Following is the graph for consumption per captia and income per capita.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cons_inc&lt;-ts(con_inc,start = 1960, end=2019)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#cons_inc&lt;-as_tibble(con_inc)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cons_inc)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>year)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> C), <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Y), <span class="at">color=</span><span class="st">"steelblue"</span>, <span class="at">linetype=</span><span class="st">"twodash"</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Income per capita"</span>,<span class="at">y=</span><span class="st">"Consumption per captia"</span>,<span class="at">title =</span> <span class="st">"Consumption Income pattern over time for Pakistan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="consumption_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -276,38 +269,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-<p>The regression has <span class="math inline">\(R^2\)</span> of 0.97, which is interpreted to mean that <span class="math inline">\(97\%\)</span> of the variation in Pakistani Consumption can be explained by the Pakistani GDP. The <span class="math inline">\(t-stat=39\)</span> shows that the coefficient income is highly significant. The <span class="math inline">\(p-value\)</span> of <span class="math inline">\(0.000\)</span> means we can reject the null hypothesis that the true coefficient is zero, corresponding to the idea that <span class="math inline">\(Y\)</span> has no influence on <span class="math inline">\(C\)</span>. Validity of regression results depends on a large number of assumptions, which are discussed in econometrics textbooks.</p>
+<p>The regression has <span class="math inline">\(R^2\)</span> of 0.97, which is interpreted to mean that <span class="math inline">\(97\%\)</span> of the variation in Pakistani Consumption can be explained by the Pakistani GDP. The <span class="math inline">\(t-stat=\frac{0.785}{0.020}=39\)</span> shows that the coefficient income is highly significant. The <span class="math inline">\(p-value\)</span> of <span class="math inline">\(0.000\)</span> means we can reject the null hypothesis that the true coefficient is zero, corresponding to the idea that <span class="math inline">\(Y\)</span> has no influence on <span class="math inline">\(C\)</span>. Validity of regression results depends on a large number of assumptions, which are discussed in econometrics textbooks.</p>
 <p>Here are the results of regressing Per Capita consumption in Pakistan on Per Capita GDP from 1967 to 2018. A plot of the regression residuals is given below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#acf(resid)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pacf(resid)</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#adf.test(resid)</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="sc">|&gt;</span><span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 52
-Columns: 9
-$ year    &lt;date&gt; 1975-05-22, 1975-05-23, 1975-05-24, 1975-05-25, 1975-05-26, 1…
-$ C       &lt;dbl&gt; 327.4169, 326.1967, 348.4950, 380.0568, 365.3227, 356.0221, 36…
-$ Y       &lt;dbl&gt; 403.7697, 421.6062, 433.0744, 469.4377, 459.0634, 450.3759, 46…
-$ lnc     &lt;dbl&gt; 5.791234, 5.787500, 5.853624, 5.940320, 5.900781, 5.874993, 5.…
-$ lny     &lt;dbl&gt; 6.000845, 6.044072, 6.070910, 6.151536, 6.129189, 6.110083, 6.…
-$ c_y     &lt;dbl&gt; 0.9650698, 0.9575499, 0.9642087, 0.9656647, 0.9627345, 0.96152…
-$ cdividy &lt;dbl&gt; 0.8109000, 0.7737000, 0.8047000, 0.8096000, 0.7958000, 0.79050…
-$ Trend   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,…
-$ resid   &lt;dbl&gt; 14.702276, -0.527145, 12.763683, 15.764683, 9.178845, 6.701742…</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cons_inc)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>resid)<span class="sc">+</span><span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#acf(resid)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pacf(resid)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#adf.test(resid)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cons_inc)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>resid)<span class="sc">+</span><span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="consumption_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>One of the central assumptions is that the regression residuals should be random, and should come from a common distribution. To check whether or not this holds, we graph the regression residuals, the differences between the actual value and the regression fit:</p>
+<p>One of the central assumptions is that the regression residuals should be random, and should come from a common distribution. Residuals in the graph indicate high correlation among the residuals and these dont follow random pattern. To verify further,we have some more analysis of these residuals to assess normality, heteroscedasticity and independence:</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="consumption_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This plot shows serious problems, since these residuals display systematic behavior. They are all negative and small early. To see how these patterns differ from independent random variables, we provide a graph of independent random variables with mean 0 and standard error 4.579, matching the estimated regression model standard error. The Keynesian consumption function is one of the most widely accepted and estimated regression models. The causal hypothesis is that Income (GDP) determines Consumption (Con): GDP <span class="math inline">\(\Rightarrow\)</span> Con. The simplest regression model which embodies this relationship is: Con = a + b GDP. Running this regression on the data leads to the following results:</p>
+<p>This plot shows serious problems, since these residuals display systematic behavior. They are all negative and small early. To see how these patterns differ from independent random variables, we provide a graph of independent random variables with mean 0 and standard error 4.579, matching the estimated regression model standard error. The Keynesian consumption function is one of the most widely accepted and estimated regression models. The causal hypothesis is that Income (GDP) determines Consumption (Con): GDP <span class="math inline">\(\Rightarrow\)</span> Con. There may be a deterministic trend and now I regress consumption on trend and show graphical results of trend model as follows:</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="consumption_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
@@ -315,32 +294,30 @@ $ resid   &lt;dbl&gt; 14.702276, -0.527145, 12.763683, 15.764683, 9.178845, 6.70
 </div>
 <p>Random residuals frequently switch signs. They do not display any patterns in sequencing. The patterned residuals in the consumption function prove that the regression is not valid. In such situations, econometricians typically assume that the problem is due to missing regressors or wrong functional form. By adding suitable additional regressors, and modifying the functional form, one can generally ensure that the residuals appear to satisfy the assumptions made about them.</p>
 </section>
+</section>
 <section id="what-to-do-when-errors-are-not-independent" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-do-when-errors-are-not-independent">2. What to do when errors are not independent?</h2>
-<p>Note that <span class="math inline">\(e_t=y_t-\hat{b}x_t\)</span> and <span class="math inline">\(e_{t-1}=y_{t-1}-\hat{b}x_{t-1}\)</span>. A relationship between the two errors shows that what happens in period <span class="math inline">\(t-1\)</span> has an effect on what happens in period <span class="math inline">\(t\)</span>. In other words, we have a dynamic model instead of a static model.</p>
+<p>Note that <span class="math inline">\(e_t=y_t-\hat{\beta}x_t\)</span> and <span class="math inline">\(e_{t-1}=y_{t-1}-\hat{\beta}x_{t-1}\)</span>. A relationship between the two errors shows that what happens in period <span class="math inline">\(t-1\)</span> has an effect on what happens in period <span class="math inline">\(t\)</span>. In other words, we have a dynamic model instead of a static model.</p>
 </section>
 <section id="static-versus-dynamic-models" class="level2">
 <h2 class="anchored" data-anchor-id="static-versus-dynamic-models">STATIC VERSUS DYNAMIC MODELS</h2>
-<p>A model of the type <span class="math inline">\(C_t = a + b Y_t + e_t\)</span> is called a static model. Events in time period <span class="math inline">\(t\)</span> are isolated from those of period <span class="math inline">\(t-1\)</span> and <span class="math inline">\(t+1\)</span>. As opposed to this, if data from period <span class="math inline">\(t-1\)</span> enters into the equation for period <span class="math inline">\(t\)</span>, then we have dynamic model.</p>
-<p>Suppose that we conduct tests and learn that <span class="math inline">\(e_t\)</span> is correlated with <span class="math inline">\(e_{t-1}\)</span>. Note that <span class="math inline">\(e_{t-1}=C_{t-1}-a-bY_{t-1}\)</span>. It follows that <span class="math inline">\(C_{t-1}\)</span> and <span class="math inline">\(Y_{t-1}\)</span> have an effect on current consumption.</p>
+<p>A model of the type <span class="math inline">\(C_t = \alpha + \beta Y_t + e_t\)</span> is called a static model. Events in time period <span class="math inline">\(t\)</span> are isolated from those of period <span class="math inline">\(t-1\)</span> and <span class="math inline">\(t+1\)</span>. As opposed to this, if data from period <span class="math inline">\(t-1\)</span> enters into the equation for period <span class="math inline">\(t\)</span>, then we have dynamic model.</p>
+<p>Suppose that we conduct tests and learn that <span class="math inline">\(e_t\)</span> is correlated with <span class="math inline">\(e_{t-1}\)</span>. Note that <span class="math inline">\(e_{t-1}=C_{t-1}-\alpha-\beta Y_{t-1}\)</span>. It follows that <span class="math inline">\(C_{t-1}\)</span> and <span class="math inline">\(Y_{t-1}\)</span> have an effect on current consumption.</p>
 <p>The main message of correlated residuals is that variables from one period ago have an effect on current period.</p>
-<p>Thus in order to fix up the problem of correlated residuals, we need to build a dynamic model. The simplest dynamic extension of the Keynesian model is the following: <span class="math display">\[C_t=a+bY_t+cC_{t-1}+dY_{t-1}+e_t\]</span></p>
+<p>Thus in order to fix up the problem of correlated residuals, we need to build a dynamic model. The simplest dynamic extension of the Keynesian model is the following: <span class="math display">\[C_t=\alpha+\beta Y_t+\gamma C_{t-1}+\delta Y_{t-1}+e_t\]</span></p>
 <p>We put in ALL the information we have about ALL the variables in the model at period <span class="math inline">\(t-1\)</span>. Similarly we could go back to period <span class="math inline">\(t-2\)</span>.</p>
 <section id="general-to-simple-vs.-simple-to-general-modelling" class="level3">
 <h3 class="anchored" data-anchor-id="general-to-simple-vs.-simple-to-general-modelling">General-to-Simple vs.&nbsp;Simple-to-General Modelling:</h3>
 <p>In fixing problems detected by tests, there are two strategies which are commonly used. The older and more traditional strategy is called the bottom-up or simple-to-general strategy. In this strategy, we would start with the simplest model, which is a static Keynesian model. Then we note that the errors are correlated. Then we make the simplest dynamic extension. Next we test the errors. If the problem of autocorrelation has been eliminated then we stop here. If there is still autocorrelation, it follows that a higher order dynamic model is needed. So we go to a second order model. We keep increasing the order (and complexity) of the model until we get to a point where the errrors are not autocorrelated. This is one aspect of simple-to-general modelling.</p>
-<p>The alternative to this which has recently been proposed, and shown to have superior properties, is general to simple modelling. In this method, we note that errors seem to be correlated upto the fourth order. So we start with a fourth order dynamic model. In general the goal is to start with the biggest model you might possibly need and simplify it down to a simpler model. This is called the top-down or general to simple strategy. We have illustrated this on the data set as well. The final model which emerges from our analysis is <span class="math inline">\(C_t = a + b Y_t + c C_{t-1} + e_t\)</span>. However, this model suffers from both structural change and heteroskedasticity. This suggests that we should try a log transformation to get rid of the heteroskedasticity. Perhaps this will eliminate or reduce the structural change problem as well.</p>
-<p>the simple Keynesian consumption function <span class="math inline">\(C_t= a + bY_t + e_t\)</span> failed several tests on Pakistani data – it has autocorrelated errors, heteroskedasticity (via GQ but not White), and also fails the CHOW test for structural stability.</p>
+<p>The alternative to this which has recently been proposed, and shown to have superior properties, is general to simple modelling. In this method, we note that errors seem to be correlated upto the fourth order. So we start with a fourth order dynamic model. In general the goal is to start with the biggest model you might possibly need and simplify it down to a simpler model. This is called the top-down or general to simple strategy. We have illustrated this on the data set as well. The final model which emerges from our analysis is <span class="math inline">\(C_t = \alpha + \beta Y_t + \gamma C_{t-1} + e_t\)</span>. However, this model suffers from both structural change and heteroskedasticity. This suggests that we should try a log transformation to get rid of the heteroskedasticity. Perhaps this will eliminate or reduce the structural change problem as well.</p>
+<p>the simple Keynesian consumption function <span class="math inline">\(C_t= \alpha + \beta Y_t + e_t\)</span> failed several tests on Pakistani data – it has autocorrelated errors, and maybe structural stability.</p>
 <p>How should we proceed? Experience with consumption functions shows that they very often have dynamic properties. This is indicated by the autocorrelation of the errors as well. Thus we try the simplest dynamic extension:</p>
 </section>
 </section>
-<section id="larger-model" class="level2">
-<h2 class="anchored" data-anchor-id="larger-model">Larger Model</h2>
+<section id="dynamic-model" class="level2">
+<h2 class="anchored" data-anchor-id="dynamic-model">Dynamic Model</h2>
 <p>We start with <strong>General to Specific</strong> approach and include upto three lags of both consumption and income. There is no hard and fast rule but it is suggested that number of regressors should not exceed number of observations. We have in total 52 observations we can select 3 or 4 lages of each (had it been quarterly data we would have selected 4 lags of each). Some studies suggest to have regressor should not exceed one third of the total number of observations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g2s<span class="ot">&lt;-</span><span class="fu">lm</span>(C<span class="sc">~</span>Y<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">2</span>)<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">2</span>)<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">3</span>)<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">3</span>),<span class="at">data=</span>cons_inc)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(g2s,<span class="at">estimate =</span> <span class="fu">c</span>(<span class="st">"{estimate} ({std.error}){stars}"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -452,11 +429,23 @@ $ resid   &lt;dbl&gt; 14.702276, -0.527145, 12.763683, 15.764683, 9.178845, 6.70
 
 </div>
 </div>
-<p>Results indicate that Y and first lag of C are highly significant and second lag of Y is significant at 10%. So by standard statistical procedure, one should drop all variables and re-run the regression with significant variables as follows:</p>
+<p>Results indicate that <span class="math inline">\(Y\)</span> and first lag of <span class="math inline">\(C\)</span> are highly significant and second lag of Y is significant at 10%. So by standard statistical procedure, one should drop all variables and re-run the regression with significant variables as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g2s1<span class="ot">&lt;-</span><span class="fu">lm</span>(C<span class="sc">~</span>Y<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">2</span>),<span class="at">data=</span>cons_inc)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(g2s1,<span class="at">estimate =</span> <span class="fu">c</span>(<span class="st">"{estimate} ({std.error}){stars}"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 50
+Columns: 11
+$ year        &lt;date&gt; 1975-05-24, 1975-05-25, 1975-05-26, 1975-05-27, 1975-05-2…
+$ C           &lt;dbl&gt; 348.4950, 380.0568, 365.3227, 356.0221, 367.2798, 396.0909…
+$ Y           &lt;dbl&gt; 433.0744, 469.4377, 459.0634, 450.3759, 469.0675, 472.1552…
+$ lnc         &lt;dbl&gt; 5.853624, 5.940320, 5.900781, 5.874993, 5.906124, 5.981644…
+$ lny         &lt;dbl&gt; 6.070910, 6.151536, 6.129189, 6.110083, 6.150747, 6.157308…
+$ c_y         &lt;dbl&gt; 0.9642087, 0.9656647, 0.9627345, 0.9615243, 0.9602288, 0.9…
+$ cdividy     &lt;dbl&gt; 0.8047000, 0.8096000, 0.7958000, 0.7905000, 0.7830001, 0.8…
+$ Trend       &lt;int&gt; 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1…
+$ resid       &lt;dbl&gt; 12.763683, 15.764683, 9.178845, 6.701742, 3.278557, 29.664…
+$ trend_resid &lt;dbl&gt; 30.063569, 50.242900, 24.126271, 3.443237, 3.318460, 20.74…
+$ g2s1res     &lt;dbl&gt; 12.222517, 12.470682, -20.045428, 4.372311, 9.566801, 22.8…</code></pre>
+</div>
 <div class="cell-output-display">
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -537,34 +526,39 @@ $ resid   &lt;dbl&gt; 14.702276, -0.527145, 12.763683, 15.764683, 9.178845, 6.70
 </div>
 </div>
 <p>Oh great now we have all the variables are highly significant and if residuals satisfy all standard assumptions, it will be perfect fit. So lets have a look at the residuals behavior.</p>
+<p>Lets have first look at residuals plot over time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(g2s1,<span class="at">plots =</span> <span class="st">'default'</span>,<span class="at">smoother =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="consumption_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Well it seems all is perfect. But what about <strong>theoretical interpretation</strong>.</p>
-</section>
-<section id="multicolinearity-and-economic-rationale" class="level2">
-<h2 class="anchored" data-anchor-id="multicolinearity-and-economic-rationale">Multicolinearity and economic rationale</h2>
-<p>Now if we interpret and explain our model, it will be little odd to say that consumption is function of current income, last year consumption and 2 years lagged income. As first two coefficient makes sense and we shall also learn about these later on as well. But instead of first lag of income , what does explain second lag to be in the model either needs a very solid reason or explore your econometric model little more.</p>
-<p>As in time series data there is very high correlation of variables with their own lagged values. So lets have a look at the correlation matrix and observe how highly they are correlated with each other.</p>
+<p>It seems residuals are behaving randomly. Lets apply some more tests before I finalize the model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cons_inc<span class="ot">&lt;-</span>cons_inc<span class="sc">|&gt;</span><span class="fu">mutate</span>(<span class="at">lagY1=</span><span class="fu">lag</span>(Y,<span class="dv">1</span>),<span class="at">lagY2=</span><span class="fu">lag</span>(Y,<span class="dv">2</span>),<span class="at">lagY3=</span><span class="fu">lag</span>(Y,<span class="dv">3</span>),<span class="at">lagC1=</span><span class="fu">lag</span>(C,<span class="dv">1</span>),<span class="at">lagC2=</span><span class="fu">lag</span>(C,<span class="dv">2</span>),<span class="at">lagC3=</span><span class="fu">lag</span>(C,<span class="dv">3</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>M<span class="ot">&lt;-</span>cons_inc<span class="sc">|&gt;</span><span class="fu">select</span>(C,Y,lagY1,lagY2,lagY3,lagC1,lagC2,lagC3)<span class="sc">|&gt;</span><span class="fu">na.omit</span>()</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>M1<span class="ot">&lt;-</span><span class="fu">cor</span>(M)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(M1,<span class="at">method =</span> <span class="st">'number'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="consumption_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This correlation plot indicated very correlation between variables and their lags which implies these variables have very high multicollinearity and indicating they are almost perfect substitutes. Economic rationale suggests that first lag of income should be more relevant in explaining current consumption than that of second lag of income. Correlation between lag(Y,1) and lag(Y,2) is 0.997, therefore, lets use first lag of Y in the model.</p>
+<p>This seems quite a good job. But what about <span class="pink"><strong>theoretical interpretation</strong></span>.</p>
+</section>
+<section id="multicolinearity-and-economic-rationale" class="level2">
+<h2 class="anchored" data-anchor-id="multicolinearity-and-economic-rationale">Multicolinearity and economic rationale</h2>
+<p>Now if we interpret and explain our model, it will be fine to say that consumption is function of current income, but little difficult to justify <strong>2 years</strong> lagged income effect on consumption while no effect of <strong>One year lagged income</strong>. As first two coefficient makes sense and we shall also learn about these later on as well. But instead of first lag of income , what does explain second lag to be in the model either needs a very solid reason or needs econometric model to be explored little more.</p>
+<p>As in time series data there is very high correlation of variables with their own lagged values. So lets have a look at the correlation matrix and observe how highly they are correlated with each other.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>g2s2<span class="ot">&lt;-</span><span class="fu">lm</span>(C<span class="sc">~</span>Y<span class="sc">+</span><span class="fu">lag</span>(C,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">lag</span>(Y,<span class="dv">1</span>),<span class="at">data=</span>cons_inc)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(g2s2,<span class="at">estimate =</span> <span class="fu">c</span>(<span class="st">"{estimate} ({std.error}){stars}"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          C     Y lagY1 lagY2 lagY3 lagC1 lagC2 lagC3
+C     1.000 0.983 0.979 0.973 0.968 0.994 0.987 0.983
+Y     0.983 1.000 0.998 0.994 0.989 0.982 0.980 0.979
+lagY1 0.979 0.998 1.000 0.998 0.994 0.982 0.981 0.979
+lagY2 0.973 0.994 0.998 1.000 0.998 0.979 0.982 0.981
+lagY3 0.968 0.989 0.994 0.998 1.000 0.974 0.980 0.982
+lagC1 0.994 0.982 0.982 0.979 0.974 1.000 0.994 0.988
+lagC2 0.987 0.980 0.981 0.982 0.980 0.994 1.000 0.994
+lagC3 0.983 0.979 0.979 0.981 0.982 0.988 0.994 1.000</code></pre>
+</div>
+</div>
+<p>This correlation plot indicated very correlation between variables and their lags which implies these variables have very high multicollinearity and indicating they are almost perfect substitutes. Economic rationale suggests that first lag of income should be more relevant in explaining current consumption than that of second lag of income. Correlation between lag(Y,1) and lag(Y,2) is 0.998, therefore, lets use first lag of Y in the model.</p>
+<div class="cell">
 <div class="cell-output-display">
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -644,7 +638,12 @@ $ resid   &lt;dbl&gt; 14.702276, -0.527145, 12.763683, 15.764683, 9.178845, 6.70
 
 </div>
 </div>
-<p>Oh that makes sense.</p>
+<p>Oh that makes sense and current consumption is explained by current income, past year consumption and past year income and all other variables are insignificant. This model pass all diagnostic tests as well.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="consumption_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="summary-and-conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="summary-and-conclusion">Summary and conclusion</h2>
