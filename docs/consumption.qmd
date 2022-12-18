@@ -1,5 +1,5 @@
 ---
-title: 'Understanding econometric with simple <br> Consumption Function Model: Pakistan  '
+title: 'Understanding econometric modeling with simple <br> Consumption Function for Pakistan  '
 subtitle: "Model Selection, Multicollinearity, G2S <br> Course: Economic Forecasting and Modeling"
 author: '*Zahid Asghar *'
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -7,6 +7,7 @@ format:
   html:
     theme: [default, custom.scss]
     toc: true
+    code-fold: true
 overview: true
 execute:
   echo: false
@@ -34,7 +35,7 @@ library(fpp3)
 
 ```
 
-### Load data 
+### Load data
 
 ```{r}
 #| echo: false
@@ -103,8 +104,7 @@ resid_panel(con_mod,plots = 'default',smoother = TRUE)
 
 ```
 
-This plot shows serious problems, since these residuals display systematic behavior. They are all negative and small early. To see how these patterns differ from independent random variables, we provide a graph of independent random variables with mean 0 and standard error 4.579, matching the estimated regression model standard error. The Keynesian consumption function is one of the most widely accepted and estimated regression models. The causal hypothesis is that Income (GDP) determines Consumption (Con): GDP $\Rightarrow$ Con. 
-There may be a deterministic trend and now I regress consumption on trend and show graphical results of trend model as follows:
+This plot shows serious problems, since these residuals display systematic behavior. They are all negative and small early. To see how these patterns differ from independent random variables, we provide a graph of independent random variables with mean 0 and standard error 4.579, matching the estimated regression model standard error. The Keynesian consumption function is one of the most widely accepted and estimated regression models. The causal hypothesis is that Income (GDP) determines Consumption (Con): GDP $\Rightarrow$ Con. There may be a deterministic trend and now I regress consumption on trend and show graphical results of trend model as follows:
 
 ```{r, echo=FALSE}
 library(gridExtra)
@@ -180,12 +180,14 @@ modelsummary(g2s1,estimate = c("{estimate} ({std.error}){stars}"))
 Oh great now we have all the variables are highly significant and if residuals satisfy all standard assumptions, it will be perfect fit. So lets have a look at the residuals behavior.
 
 Lets have first look at residuals plot over time.
+
 ```{r}
 #| echo: false
 g13
 ```
 
 It seems residuals are behaving randomly. Lets apply some more tests before I finalize the model.
+
 ```{r}
 #| warning: false
 #| echo: false
@@ -194,7 +196,7 @@ It seems residuals are behaving randomly. Lets apply some more tests before I fi
 resid_panel(g2s1,plots = 'default',smoother = TRUE)
 ```
 
-This seems quite a good job. But what about [**theoretical interpretation**]{.pink}.
+This seems quite a good job. But what about [**theoretical interpretation**]{.purple}.
 
 ## Multicolinearity and economic rationale
 
@@ -221,7 +223,11 @@ g2s2<-lm(C~Y+lag(C,1)+lag(Y,1),data=cons_inc)
 modelsummary(g2s2,estimate = c("{estimate} ({std.error}){stars}"))
 ```
 
-Oh that makes sense and current consumption is explained by current income, past year consumption and past year income and all other variables are insignificant. This model pass all diagnostic tests as well.
+::: {.border}
+
+[Oh that makes sense and current consumption is explained by current income, past year consumption and past year income and all other variables are insignificant. This model pass all diagnostic tests as well.]{.purple}
+
+:::
 
 ```{r}
 #| warning: false
@@ -230,6 +236,5 @@ Oh that makes sense and current consumption is explained by current income, past
 
 resid_panel(g2s2,plots = 'default',smoother = TRUE)
 ```
-
 
 ## Summary and conclusion

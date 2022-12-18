@@ -9,7 +9,7 @@
 <meta name="author" content="Zahid Asghar ">
 <meta name="dcterms.date" content="2022-12-18">
 
-<title>Understanding econometric with simple   Consumption Function Model: Pakistan</title>
+<title>Understanding econometric modeling with simple   Consumption Function for Pakistan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Understanding econometric with simple <br> Consumption Function Model: Pakistan</h1>
+<h1 class="title">Understanding econometric modeling with simple <br> Consumption Function for Pakistan</h1>
 <p class="subtitle lead">Model Selection, Multicollinearity, G2S <br> Course: Economic Forecasting and Modeling</p>
 </div>
 
@@ -272,10 +272,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The regression has <span class="math inline">\(R^2\)</span> of 0.97, which is interpreted to mean that <span class="math inline">\(97\%\)</span> of the variation in Pakistani Consumption can be explained by the Pakistani GDP. The <span class="math inline">\(t-stat=\frac{0.785}{0.020}=39\)</span> shows that the coefficient income is highly significant. The <span class="math inline">\(p-value\)</span> of <span class="math inline">\(0.000\)</span> means we can reject the null hypothesis that the true coefficient is zero, corresponding to the idea that <span class="math inline">\(Y\)</span> has no influence on <span class="math inline">\(C\)</span>. Validity of regression results depends on a large number of assumptions, which are discussed in econometrics textbooks.</p>
 <p>Here are the results of regressing Per Capita consumption in Pakistan on Per Capita GDP from 1967 to 2018. A plot of the regression residuals is given below:</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#acf(resid)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pacf(resid)</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#adf.test(resid)</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cons_inc)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>resid)<span class="sc">+</span><span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="consumption_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -538,7 +541,7 @@ $ g2s1res     &lt;dbl&gt; 12.222517, 12.470682, -20.045428, 4.372311, 9.566801, 
 <p><img src="consumption_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This seems quite a good job. But what about <span class="pink"><strong>theoretical interpretation</strong></span>.</p>
+<p>This seems quite a good job. But what about <span class="purple"><strong>theoretical interpretation</strong></span>.</p>
 </section>
 <section id="multicolinearity-and-economic-rationale" class="level2">
 <h2 class="anchored" data-anchor-id="multicolinearity-and-economic-rationale">Multicolinearity and economic rationale</h2>
@@ -638,7 +641,9 @@ lagC3 0.983 0.979 0.979 0.981 0.982 0.988 0.994 1.000</code></pre>
 
 </div>
 </div>
-<p>Oh that makes sense and current consumption is explained by current income, past year consumption and past year income and all other variables are insignificant. This model pass all diagnostic tests as well.</p>
+<div class="border">
+<p><span class="purple">Oh that makes sense and current consumption is explained by current income, past year consumption and past year income and all other variables are insignificant. This model pass all diagnostic tests as well.</span></p>
+</div>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="consumption_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
