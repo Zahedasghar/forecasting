@@ -7,6 +7,7 @@ format:
   html:
     theme: [default, custom.scss]
     toc: true
+    code-fold: true
 overview: true
 execute:
   echo: false
@@ -125,6 +126,9 @@ The reason for the failure of trend fit may be due to the reasonable assumption 
 
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
 con_inc<-con_inc %>% mutate(con_gr=(SgpCon-lag(SgpCon,1))/lag(SgpCon,1)*100,gdp_gr=(SgpGDP-lag(SgpGDP,1))/lag(SgpGDP,1)*100,gdp_gr_Saf=(SAfGDP-lag(SAfGDP,1))/lag(SAfGDP,1)*100)
+
+mod1<-lm(con_gr~gdp_gr+gdp_gr_Saf+SgpGDP, con_inc)
+tidy(mod1)
 ggplot(con_inc)+aes(x=Year,y=con_gr)+geom_line()+ggtitle("Growth rate in consumption of Singapore")
 ggplot(con_inc)+aes(x=Year,y=con_gr)+geom_line()+ggtitle("Growth rate in GDP of Singapore")
 growth_mod<-lm(con_gr~gdp_gr,data=con_inc)
