@@ -41,21 +41,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## VECM and Cointegration {background-color="`r clrs[1]`" .white}
-Macro data are attached herewith. 
 
-- Plot all the series
-- Test for unit root (Use SBIC for lag selection)
-- If all series are non-stationary, use Johansen Cointegration procedure for
-case-3 option (constant in CE and in LR relation). Appropriate lag length selection is important.
-- Estimate VECM model and forecast it for next 4 quarters
-- Complete the write up and submit it in 1 hour.
-- 
-• Experience the process of practical application of time series analysis. 
-
-• Get hands-on experience with the analysis of time series. 
-
-• Give correct interpretation of outcomes of the analysis. 
 
 ## Main Objectives
 - Concept of cointegration 
