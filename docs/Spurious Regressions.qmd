@@ -8,17 +8,14 @@ format:
     theme: [default, custom.scss]
     toc: true
     code-fold: true
+    
 overview: true
 execute:
-  echo: false
+  
   warning: false
   freeze: auto
 editor: visual
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## Introduction
 
@@ -30,7 +27,7 @@ $Z$ is a common cause of $X$ and $Y$ if $Z$ $\Rightarrow$ $X$ and $Z$ $\Rightarr
 
 Data on annual GDP, Consumption, and Investment, for Singapore, taken from the WDI data set of the World Bank, is plotted below:
 
-```{r, echo=FALSE, message=FALSE,warning=FALSE}
+```{r, message=FALSE,warning=FALSE}
 library(tidyverse)
 library(readxl)
 con_inc <- read_excel("SgpCon2Models.xlsx")
@@ -45,7 +42,7 @@ ggplot(con_inc)+aes(x=Year)+geom_line(aes(y = SgpGDP), color = "darkred") +
 
 The Keynesian consumption function is one of the most widely accepted and estimated regression models. The causal hypothesis is that Income (GDP) determines Consumption (Con): GDP $Rightarrow$ Con. The simplest regression model which embodies this relationship is: Con = a + b GDP. Running this regression on the data leads to the following results:
 
-```{r, echo=FALSE, warning=FALSE,message=FALSE}
+```{r,   warning=FALSE,message=FALSE}
 library(kableExtra)
 library(stargazer)
 library(broom)
@@ -65,7 +62,7 @@ huxreg(con_mod)
 
 The regression has $R^2$ of 99.6%, which is interpreted to mean that 99.7% of the variation in Singapore Consumption can be explained by the Singapore GDP. The t-stat of 116 shows that the coefficient 0.486 of SgpGDP is highly significant. The p-value of 0.000 means we can reject the null hypothesis that the true coefficient is 0.0, corresponding to the idea that SgpGDP has no influence on SgpCon. Validity of regression results depends on a large number of assumptions, which are discussed in econometrics textbooks. One of the central assumptions is that the regression residuals should be random, and should come from a common distribution. To check whether or not this holds, we graph the regression residuals, the differences between the actual value and the regression fit:
 
-```{r, echo=FALSE,warning=FALSE,message=FALSE}
+```{r,  ,warning=FALSE,message=FALSE}
 library(ggResidpanel)
 resid_panel(con_mod,plots = 'default',smoother = TRUE)
 
@@ -73,7 +70,7 @@ resid_panel(con_mod,plots = 'default',smoother = TRUE)
 
 This plot shows serious problems, since these residuals display systematic behavior. They are all negative and small early. To see how these patterns differ from independent random variables, we provide a graph of independent random variables with mean 0 and standard error 4.579, matching the estimated regression model standard error. The Keynesian consumption function is one of the most widely accepted and estimated regression models. The causal hypothesis is that Income (GDP) determines Consumption (Con): GDP $\Rightarrow$ Con. The simplest regression model which embodies this relationship is: Con = a + b GDP. Running this regression on the data leads to the following results:
 
-```{r, echo=FALSE}
+```{r,  }
 library(gridExtra)
 g11<-ggplot(con_inc, aes(x = Trend, y = SgpCon)) +
   geom_point() +
@@ -89,12 +86,14 @@ Random residuals frequently switch signs. They do not display any patterns in se
 
 The coefficient of the regressor is supposed to be a measure of the causal effect. According to the regression above, if SgpGDP goes up by \$100, then \$49 of it will be spent on consumption. This means that the enormously high proportion of 51% of the income will be saved. Since savings translate to investments, this could account for the dramatic growth of Singapore over the period in question. However, the patterns shown in the errors show that we cannot rely on the validity of this estimate. Vast amounts of experience with estimating this kind of regression function leads to two major conclusions.
 
-    1.The estimate 0.49 of the causal effect is highly unstable – by adding many
-    different plausible variables, we can make it change over a great range of
-    values. Thus, these regressions do not provide accurate estimates of the key
-    parameter we want to estimate.
-    2.The best fitting regressions very often make huge forecasting errors, and
-    therefore are not very useful for policy. 
+```         
+1.The estimate 0.49 of the causal effect is highly unstable – by adding many
+different plausible variables, we can make it change over a great range of
+values. Thus, these regressions do not provide accurate estimates of the key
+parameter we want to estimate.
+2.The best fitting regressions very often make huge forecasting errors, and
+therefore are not very useful for policy. 
+```
 
 Even though the regression is not very useful in estimating the size of the causal effect, at least the high R-squared SEEMS to confirm the causal effect that SgpGDP =\> SdpCon. At least, that was widely believed before the 1980's: high R-squared means that you have a good regression equation. It is this issue that we want to examine in this lecture. That is, we want to clarify how nonsense regressions can have high R-squared.
 
@@ -124,7 +123,7 @@ In the second regression, which regresses SgpCon on SAfGDP, the regression has a
 
 The reason for the failure of trend fit may be due to the reasonable assumption that the growth rate is stable across time, so that con_gr=(SgpCon-lag(SgpCon,1))/lag(SgpCon,1)*100,gdp_gr=(SgpGDP-lag(SgpGDP,1))/lag(SgpGDP,1)*100,gdp_gr_Saf=(SAfGDP-lag(SAfGDP,1))/lag(SAfGDP,1)\*100 would be uncorrelated with time. This can be checked by graphing this variable against time, as follows:
 
-```{r, echo=FALSE, warning=FALSE,message=FALSE}
+```{r,  , warning=FALSE,message=FALSE}
 con_inc<-con_inc %>% mutate(con_gr=(SgpCon-lag(SgpCon,1))/lag(SgpCon,1)*100,gdp_gr=(SgpGDP-lag(SgpGDP,1))/lag(SgpGDP,1)*100,gdp_gr_Saf=(SAfGDP-lag(SAfGDP,1))/lag(SAfGDP,1)*100)
 
 mod1<-lm(con_gr~gdp_gr+gdp_gr_Saf+SgpGDP, con_inc)
@@ -137,7 +136,7 @@ huxreg(growth_mod)
 
 This variable is also uncorrelated with time, at least visually. The variable transformation of taking growth rates has removed the common time trend from both variables. Now it should be possible to run a regression of Consumption on Income which does not suffer from the spurious correlation between the two variables created by the common trend. Unfortunately, this strategy also fails to differentiate between genuine and spurious regressions as we will see. First, let us look at the genuine causal regression of Gr_SgpC on Gr_SgfG: Gr_SdpC = 0.009 + 0.634 Gr_SgpG $R^2$ is now 69%. It has gone down because we have removed the correlation due to the common factor of time-trend, but it is still very high. The regression provides a good fit. Also, for the first time, the residuals from this regression look random:
 
-```{r, echo=FALSE}
+```{r,  }
 barplot(growth_mod$residuals)
 library(ggResidpanel)
 resid_panel(growth_mod,plots = 'default',smoother = TRUE)
@@ -148,7 +147,7 @@ This transformation from levels to growth rates has substantially improved the r
 
 However, our main concern is to see if this transformation can distinguish between genuine causal relationships and spurious ones. For this purpose, we run the regression of the growth rate of SgpCon on the growth rate of SAfGDP. This yields the following results:
 
-```{r, echo=FALSE}
+```{r,  }
 growth_mod1<-lm(con_gr~gdp_gr_Saf,data=con_inc)
 huxreg(growth_mod1)
 ```
@@ -157,7 +156,7 @@ $Predicted GrSgpC = 0.006484 + 0.566 GrSAfG$
 
 This regression also shows that growth rates of South African GDP are highly significant in explaining growth rates of Singaporean Consumption. The regression residuals look random, and support the validity of this regression:
 
-```{r, echo=FALSE}
+```{r,  }
 barplot(growth_mod1$residuals)
 library(ggResidpanel)
 resid_panel(growth_mod1,plots = 'default',smoother = TRUE)
@@ -168,13 +167,13 @@ According to conventional econometrics, the causal regression of growth rates of
 
 In this particular case, the missing variables strategy can solve the problem. If we think that the source of the problem in this last equation is that the primary determinant of SgpCon is missing from the equation, we can fix the problem by adding this variable. When we do so, we get the following equation: Gr_SgpC = 0.004 + 0.163 Gr_SAfG + 0.569 Gr_SgpG
 
-```{r, echo=FALSE}
+```{r,  }
 growth_mod2<-lm(con_gr~gdp_gr_Saf+gdp_gr,data=con_inc)
 huxreg(growth_mod2)
 
 ```
 
-```{r, echo=FALSE}
+```{r,  }
 barplot(growth_mod2$residuals)
 library(ggResidpanel)
 resid_panel(growth_mod2,plots = 'default',smoother = TRUE)
